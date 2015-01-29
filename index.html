@@ -63,7 +63,7 @@ div.poison p {width: 20%; color: #0e0; }
 <body>
 <div class="article">
 
-<p><a href="?start=20">Reset 20</a> <a href="?start=30">30</a> <a href="?start=40">40</a></p>
+<p><a href="?">Reset 20</a> <a href="?start=30">30</a> <a href="?start=40">40</a></p>
 <h1>MtG SimpleScore</h1>
 
 <fieldset id="me">
@@ -115,8 +115,8 @@ div.poison p {width: 20%; color: #0e0; }
 
 <script>
 /*jslint browser: true, sloppy: true */
-var timerRecord, lastRecorded = {};
-lastRecorded.poison = {};
+var timerRecord, lastLogged = {};
+lastLogged.poison = {};
 
 function Q$(name) {
     var reQs, val;
@@ -140,9 +140,9 @@ function log(player, currentScore, scoreChange, type) {
         logEntry.innerHTML = currentScore + ' (' + scoreChangePrefix + scoreChange + ')';
         if (type === 'poison') {
             logEntry.className = 'poison';
-            lastRecorded.poison[player] = currentScore;
+            lastLogged.poison[player] = currentScore;
         } else {
-            lastRecorded[player] = currentScore;
+            lastLogged[player] = currentScore;
         }
 
         recordTally.appendChild(logEntry);
@@ -153,8 +153,8 @@ function newRecord(player) {
     var scores = document.querySelectorAll('#' + player + ' p'),
         currentScore = scores[0].innerHTML,
         currentScorePoison = scores[1].innerHTML,
-        scorechangeMain = currentScore - lastRecorded[player],
-        scorechangePoison = currentScorePoison - lastRecorded.poison[player];
+        scorechangeMain = currentScore - lastLogged[player],
+        scorechangePoison = currentScorePoison - lastLogged.poison[player];
 
     log(player, currentScore, scorechangeMain);
     log(player, currentScorePoison, scorechangePoison, 'poison');
@@ -210,10 +210,8 @@ function init() {
         this.selectedIndex = 0;
     }
 
-    // Build multiselect dropdowns
-    function addOptions(el, plusOrMinus) {
+    function buildMultiselectDropdown(el, plusOrMinus) {
         var ii, option, mod = 1;
-
         if (plusOrMinus === '-') {
             mod = -1;
         }
@@ -233,15 +231,15 @@ function init() {
         }
         el.addEventListener('change', multiScore);
     }
-    addOptions(document.getElementById('selectMeMinus'), '-');
-    addOptions(document.getElementById('selectMePlus'), '+');
-    addOptions(document.getElementById('selectYouMinus'), '-');
-    addOptions(document.getElementById('selectYouPlus'), '+');
+    buildMultiselectDropdown(document.getElementById('selectMeMinus'), '-');
+    buildMultiselectDropdown(document.getElementById('selectMePlus'), '+');
+    buildMultiselectDropdown(document.getElementById('selectYouMinus'), '-');
+    buildMultiselectDropdown(document.getElementById('selectYouPlus'), '+');
 
-    lastRecorded.me = startingLife;
-    lastRecorded.you = startingLife;
-    lastRecorded.poison.me = 0;
-    lastRecorded.poison.you = 0;
+    lastLogged.me = startingLife;
+    lastLogged.you = startingLife;
+    lastLogged.poison.me = 0;
+    lastLogged.poison.you = 0;
 
     document.querySelector('#me p').innerHTML = startingLife;
     document.querySelector('#you p').innerHTML = startingLife;
