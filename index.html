@@ -52,7 +52,7 @@ select:focus {outline: 0 none; }
 
 <body>
 <div class="article">
-<p><a href="">Reset</a></p>
+<p><a href="?start=20">Reset 20</a> <a href="?start=30">30</a> <a href="?start=40">40</a></p>
 <h1>MtG SimpleScore</h1>
 
 <fieldset id="me">
@@ -198,6 +198,17 @@ lastRecorded.poison = {};
 lastRecorded.poison.me = 0;
 lastRecorded.poison.you = 0;
 
+function Q$(name) {
+    var reQs, val;
+    reQs = new RegExp("[\\?&]" + name + "=([^&#]*)", "i");
+    val = reQs.exec(parent.location.search);
+    if (val) {
+        return decodeURIComponent(val[1]);
+    }
+    return "";
+}
+
+
 function score(player, scorechange) {
     changeScore(player, scorechange, 0);
 }
@@ -244,7 +255,6 @@ function log(player, currentScore, scoreChange, type) {
     var recordTally, logEntry, scoreChangePrefix = '';
     if (scoreChange) {
         recordTally = document.getElementById(player + '_record');
-        //currentScore = document.querySelector('#' + player + ' p').innerHTML;
         logEntry = document.createElement('p');
 
         if (scoreChange > 0) {
@@ -263,7 +273,6 @@ function log(player, currentScore, scoreChange, type) {
 }
 
 function newRecord(player) {
-    // type 0 = normal, 1 = immediate, 2 = poison
     var scores = document.querySelectorAll('#' + player + ' p'),
         currentScore = scores[0].innerHTML,
         currentScorePoison = scores[1].innerHTML,
@@ -272,38 +281,42 @@ function newRecord(player) {
     
     log(player, currentScore, scorechangeMain);
     log(player, currentScorePoison, scorechangePoison, 'poison');
-    
-    /*type = type || 0;
-    if (type === 0) {
-        if (scorechange) {
-            addToLog(player, scorechange);
-        }
-    }
-    if (type === 1) {
-        //if (timerRecord) clearTimeout(timerRecord);
-        
-    }*/
 }
 
-document.getElementById('selectMeMinus').addEventListener('change', function () {
-    multiscore('me', this.value);
-    this.selectedIndex = 0;
-});
+function init() {
+    var startingLife = Q$('start') || 20;
+    startingLife = +startingLife;
+    
+    lastRecorded.me = startingLife;
+    lastRecorded.you = startingLife;
+    document.querySelector('#me p').innerHTML = startingLife;
+    document.querySelector('#you p').innerHTML = startingLife;
+    document.querySelector('#me_record p').innerHTML = startingLife;
+    document.querySelector('#you_record p').innerHTML = startingLife;
 
-document.getElementById('selectMePlus').addEventListener('change', function () {
-    multiscore('me', this.value);
-    this.selectedIndex = 0;
-});
+    document.getElementById('selectMeMinus').addEventListener('change', function () {
+        multiscore('me', this.value);
+        this.selectedIndex = 0;
+    });
 
-document.getElementById('selectYouMinus').addEventListener('change', function () {
-    multiscore('you', this.value);
-    this.selectedIndex = 0;
-});
+    document.getElementById('selectMePlus').addEventListener('change', function () {
+        multiscore('me', this.value);
+        this.selectedIndex = 0;
+    });
 
-document.getElementById('selectYouPlus').addEventListener('change', function () {
-    multiscore('you', this.value);
-    this.selectedIndex = 0;
-});
+    document.getElementById('selectYouMinus').addEventListener('change', function () {
+        multiscore('you', this.value);
+        this.selectedIndex = 0;
+    });
+
+    document.getElementById('selectYouPlus').addEventListener('change', function () {
+        multiscore('you', this.value);
+        this.selectedIndex = 0;
+    });
+}
+
+init();
+
 </script>
 </body>
 </html>
