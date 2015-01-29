@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+<title>MtG SimpleScore</title>
+
+<style>
+* {margin: 0; padding: 0;}
+html {font-family: droid sans, sans-serif; padding: 0 1%; }
+h1 {margin: 2% 1% 1%; font-size: 18px; }
+.article {position: fixed; width: 99%; top: 5px; }
+.article > p {float: right; padding-right: 3%; }
+fieldset {
+    margin: 0 1%; padding: 5px 2% 10px;
+    width: 43.5%;
+    float: left;
+    font-size: 24px;
+    border: 0 none;
+    background: #333; 
+    color: #fff; 
+}
+legend {padding: 0 4px; background: #333; border-radius: 5px; font-size: 18px; }
+#record {padding-top: 150px; }
+#record > div {width: 43%; float: left; margin: 0 1%; padding: 2%; border: 1px solid #fff; overflow: auto; }
+#record p {float: none; width: auto; text-align: left; color: #700; }
+#record p.poison {color: #0c0; text-align: right; }
+#me_record {margin-right: 3%;}
+
+label {display: block; clear: both; padding-top: .5em; font-size: 80%;}
+
+div.poison {font-size: 70%; padding: 0; width: 80%; margin: 0 23%; }
+div.poison label {padding-top: 0.5em;}
+div.poison p {width: 20%; color: #0e0; }
+
+fieldset p {width: 30%; float: left; text-align: center; margin: 0; color: #fcc; }
+h5 {width: 20%; cursor: pointer; }
+h5, h6, select {
+    font-family: sans-serif; 
+    background: #ddd; 
+    font-size: 100%; 
+    border-radius: 5px; 
+    float: left; 
+    text-align: center;
+    border: 1px solid #999;
+    color: #000; 
+}
+h6, select {font-size: 50%; margin: 0; width: 13.5%; }
+select:focus {outline: 0 none; }
+</style>
+</head>
+
+<body>
+<div class="article">
+<p><a href="">Reset</a></p>
+<h1>MtG SimpleScore</h1>
+
+<fieldset id="me">
+<legend>Me</legend>
+<div class="life">
+<select id="selectMeMinus">
+    <option value="0">0
+    <option value="-1">-1
+    <option value="-2">-2
+    <option value="-3">-3
+    <option value="-4">-4
+    <option value="-5">-5
+    <option value="-6">-6
+    <option value="-7">-7
+    <option value="-8">-8
+    <option value="-9">-9
+    <option value="-10">-10
+    <option value="-11">-11
+    <option value="-12">-12
+    <option value="-13">-13
+    <option value="-14">-14
+    <option value="-15">-15
+    <option value="-16">-16
+    <option value="-17">-17
+    <option value="-18">-18
+    <option value="-19">-19
+    <option value="-20">-20
+</select>
+<h5 onclick="score('me', -1)">-1</h5>
+<p>20</p>
+<h5 onclick="score('me', 1)">+1</h5>
+<select id="selectMePlus">
+    <option value="0">0
+    <option value="1">+1
+    <option value="2">+2
+    <option value="3">+3
+    <option value="4">+4
+    <option value="5">+5
+    <option value="6">+6
+    <option value="7">+7
+    <option value="8">+8
+    <option value="9">+9
+    <option value="10">+10
+    <option value="11">+11
+    <option value="12">+12
+    <option value="13">+13
+    <option value="14">+14
+    <option value="15">+15
+    <option value="16">+16
+    <option value="17">+17
+    <option value="18">+18
+    <option value="19">+19
+    <option value="20">+20
+</select>
+</div>
+
+<div class="poison">
+<label>Poison</label>
+<h5 onclick="poison('me', -1)">-1</h5>
+<p>0</p>
+<h5 onclick="poison('me', 1)">+1</h5>
+</div>
+</fieldset>
+
+<fieldset id="you">
+<legend>You</legend>
+<div class="life">
+<select id="selectYouMinus">
+    <option value="0">0
+    <option value="-1">-1
+    <option value="-2">-2
+    <option value="-3">-3
+    <option value="-4">-4
+    <option value="-5">-5
+    <option value="-6">-6
+    <option value="-7">-7
+    <option value="-8">-8
+    <option value="-9">-9
+    <option value="-10">-10
+    <option value="-11">-11
+    <option value="-12">-12
+    <option value="-13">-13
+    <option value="-14">-14
+    <option value="-15">-15
+    <option value="-16">-16
+    <option value="-17">-17
+    <option value="-18">-18
+    <option value="-19">-19
+    <option value="-20">-20
+</select>
+<h5 onclick="score('you', -1)">-1</h5>
+<p>20</p>
+<h5 onclick="score('you', 1)">+1</h5>
+<select id="selectYouPlus">
+    <option value="0">0
+    <option value="1">+1
+    <option value="2">+2
+    <option value="3">+3
+    <option value="4">+4
+    <option value="5">+5
+    <option value="6">+6
+    <option value="7">+7
+    <option value="8">+8
+    <option value="9">+9
+    <option value="10">+10
+    <option value="11">+11
+    <option value="12">+12
+    <option value="13">+13
+    <option value="14">+14
+    <option value="15">+15
+    <option value="16">+16
+    <option value="17">+17
+    <option value="18">+18
+    <option value="19">+19
+    <option value="20">+20
+</select>
+</div>
+
+<div class="poison">
+<label>Poison</label>
+<h5 onclick="poison('you', -1)">-1</h5>
+<p>0</p>
+<h5 onclick="poison('you', 1)">+1</h5>
+</div>
+</fieldset>
+
+</div>
+
+<div id="record">
+<div id="me_record">
+<p>20</p>
+</div>
+<div id="you_record">
+<p>20</p>
+</div>
+</div>
+
+<script>
+var timerRecord, lastRecorded = {};
+lastRecorded.me = 20;
+lastRecorded.you = 20;
+lastRecorded.poison = {};
+lastRecorded.poison.me = 0;
+lastRecorded.poison.you = 0;
+
+function score(player, scorechange) {
+    changeScore(player, scorechange, 0);
+}
+
+function poison(player, scorechange) {
+    changeScore(player, scorechange, 1);
+}
+
+function multiscore(player, scorechange) {
+    changeScore(player, scorechange, 2);
+}
+
+function changeScore(player, scorechange, scoreType) {
+    var playerFields = document.getElementById(player);
+    var playerScore = playerFields.getElementsByTagName('p');
+    var immediateUpdate = false;
+    if (scoreType === 2) {
+        immediateUpdate = true
+        scoreType = 0;
+    }
+    var currentScore = playerScore[scoreType].innerHTML;
+
+    newScore = +currentScore + +scorechange;
+    playerScore[scoreType].innerHTML = newScore;
+    if (immediateUpdate) {
+        if (timerRecord) clearTimeout(timerRecord);
+        record();
+    } else {
+        recordTimer();
+    }
+}
+
+function recordTimer() {
+    if (timerRecord) clearTimeout(timerRecord);
+    timerRecord = window.setTimeout(record, 1100);
+}
+
+function record() {
+    newRecord('me');
+    newRecord('you');
+}
+
+function log(player, currentScore, scoreChange, type) {
+    var recordTally, logEntry, scoreChangePrefix = '';
+    if (scoreChange) {
+        recordTally = document.getElementById(player + '_record');
+        //currentScore = document.querySelector('#' + player + ' p').innerHTML;
+        logEntry = document.createElement('p');
+
+        if (scoreChange > 0) {
+            scoreChangePrefix = '+';
+        }
+        logEntry.innerHTML = currentScore + ' (' + scoreChangePrefix + scoreChange + ')';
+        if (type === 'poison') {
+            logEntry.className = 'poison';
+            lastRecorded.poison[player] = currentScore;
+        } else {
+            lastRecorded[player] = currentScore;
+        }
+
+        recordTally.appendChild(logEntry);
+    }
+}
+
+function newRecord(player) {
+    // type 0 = normal, 1 = immediate, 2 = poison
+    var scores = document.querySelectorAll('#' + player + ' p'),
+        currentScore = scores[0].innerHTML,
+        currentScorePoison = scores[1].innerHTML,
+        scorechangeMain = currentScore - lastRecorded[player];
+        scorechangePoison = currentScorePoison - lastRecorded.poison[player];
+    
+    log(player, currentScore, scorechangeMain);
+    log(player, currentScorePoison, scorechangePoison, 'poison');
+    
+    /*type = type || 0;
+    if (type === 0) {
+        if (scorechange) {
+            addToLog(player, scorechange);
+        }
+    }
+    if (type === 1) {
+        //if (timerRecord) clearTimeout(timerRecord);
+        
+    }*/
+}
+
+document.getElementById('selectMeMinus').addEventListener('change', function () {
+    multiscore('me', this.value);
+    this.selectedIndex = 0;
+});
+
+document.getElementById('selectMePlus').addEventListener('change', function () {
+    multiscore('me', this.value);
+    this.selectedIndex = 0;
+});
+
+document.getElementById('selectYouMinus').addEventListener('change', function () {
+    multiscore('you', this.value);
+    this.selectedIndex = 0;
+});
+
+document.getElementById('selectYouPlus').addEventListener('change', function () {
+    multiscore('you', this.value);
+    this.selectedIndex = 0;
+});
+</script>
+</body>
+</html>
