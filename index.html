@@ -47,7 +47,13 @@ div.poison p {width: 20%; color: #0e0; }
 
 /* Log */
 #record {padding-top: 145px; }
-#record > div {width: 43%; float: left; margin: 0 1%; padding: 10px 2%; border: 1px solid #fff; overflow: auto; }
+#record > div {
+    margin: 0 1%; padding: 10px 2%;
+    width: 43%;
+    float: left;
+    border: 1px solid #fff;
+    overflow: auto;
+}
 #record p {text-align: left; color: #700; }
 #record p.poison {color: #0c0; text-align: right; }
 #me_record {margin-right: 3%; }
@@ -56,134 +62,43 @@ div.poison p {width: 20%; color: #0e0; }
 
 <body>
 <div class="article">
+
 <p><a href="?start=20">Reset 20</a> <a href="?start=30">30</a> <a href="?start=40">40</a></p>
 <h1>MtG SimpleScore</h1>
 
 <fieldset id="me">
 <legend>Me</legend>
 <div class="life">
-<select id="selectMeMinus">
-    <option value="0">0
-    <option value="-1">-1
-    <option value="-2">-2
-    <option value="-3">-3
-    <option value="-4">-4
-    <option value="-5">-5
-    <option value="-6">-6
-    <option value="-7">-7
-    <option value="-8">-8
-    <option value="-9">-9
-    <option value="-10">-10
-    <option value="-11">-11
-    <option value="-12">-12
-    <option value="-13">-13
-    <option value="-14">-14
-    <option value="-15">-15
-    <option value="-16">-16
-    <option value="-17">-17
-    <option value="-18">-18
-    <option value="-19">-19
-    <option value="-20">-20
-</select>
-<h5 onclick="score('me', -1)">-1</h5>
-
+<select id="selectMeMinus"></select>
+<h5 onclick="changeScore('me', -1, 0)">-1</h5>
 <p>20</p>
-
-<h5 onclick="score('me', 1)">+1</h5>
-<select id="selectMePlus">
-    <option value="0">0
-    <option value="1">+1
-    <option value="2">+2
-    <option value="3">+3
-    <option value="4">+4
-    <option value="5">+5
-    <option value="6">+6
-    <option value="7">+7
-    <option value="8">+8
-    <option value="9">+9
-    <option value="10">+10
-    <option value="11">+11
-    <option value="12">+12
-    <option value="13">+13
-    <option value="14">+14
-    <option value="15">+15
-    <option value="16">+16
-    <option value="17">+17
-    <option value="18">+18
-    <option value="19">+19
-    <option value="20">+20
-</select>
+<h5 onclick="changeScore('me', 1, 0)">+1</h5>
+<select id="selectMePlus"></select>
 </div>
 
 <div class="poison">
 <label>Poison</label>
-<h5 onclick="poison('me', -1)">-1</h5>
+<h5 onclick="changeScore('me', -1, 1)">-1</h5>
 <p>0</p>
-<h5 onclick="poison('me', 1)">+1</h5>
+<h5 onclick="changeScore('me', 1, 1)">+1</h5>
 </div>
 </fieldset>
 
 <fieldset id="you">
 <legend>You</legend>
 <div class="life">
-<select id="selectYouMinus">
-    <option value="0">0
-    <option value="-1">-1
-    <option value="-2">-2
-    <option value="-3">-3
-    <option value="-4">-4
-    <option value="-5">-5
-    <option value="-6">-6
-    <option value="-7">-7
-    <option value="-8">-8
-    <option value="-9">-9
-    <option value="-10">-10
-    <option value="-11">-11
-    <option value="-12">-12
-    <option value="-13">-13
-    <option value="-14">-14
-    <option value="-15">-15
-    <option value="-16">-16
-    <option value="-17">-17
-    <option value="-18">-18
-    <option value="-19">-19
-    <option value="-20">-20
-</select>
-<h5 onclick="score('you', -1)">-1</h5>
-
+<select id="selectYouMinus"></select>
+<h5 onclick="changeScore('you', -1, 0)">-1</h5>
 <p>20</p>
-
-<h5 onclick="score('you', 1)">+1</h5>
-<select id="selectYouPlus">
-    <option value="0">0
-    <option value="1">+1
-    <option value="2">+2
-    <option value="3">+3
-    <option value="4">+4
-    <option value="5">+5
-    <option value="6">+6
-    <option value="7">+7
-    <option value="8">+8
-    <option value="9">+9
-    <option value="10">+10
-    <option value="11">+11
-    <option value="12">+12
-    <option value="13">+13
-    <option value="14">+14
-    <option value="15">+15
-    <option value="16">+16
-    <option value="17">+17
-    <option value="18">+18
-    <option value="19">+19
-    <option value="20">+20
-</select>
+<h5 onclick="changeScore('you', 1, 0)">+1</h5>
+<select id="selectYouPlus"></select>
 </div>
 
 <div class="poison">
 <label>Poison</label>
-<h5 onclick="poison('you', -1)">-1</h5>
+<h5 onclick="changeScore('you', -1, 1)">-1</h5>
 <p>0</p>
-<h5 onclick="poison('you', 1)">+1</h5>
+<h5 onclick="changeScore('you', 1, 1)">+1</h5>
 </div>
 </fieldset>
 
@@ -199,59 +114,18 @@ div.poison p {width: 20%; color: #0e0; }
 </div>
 
 <script>
+/*jslint browser: true, sloppy: true */
 var timerRecord, lastRecorded = {};
 lastRecorded.poison = {};
 
 function Q$(name) {
     var reQs, val;
     reQs = new RegExp("[\\?&]" + name + "=([^&#]*)", "i");
-    val = reQs.exec(parent.location.search);
+    val = reQs.exec(window.parent.location.search);
     if (val) {
         return decodeURIComponent(val[1]);
     }
     return "";
-}
-
-function score(player, scorechange) {
-    changeScore(player, scorechange, 0);
-}
-
-function poison(player, scorechange) {
-    changeScore(player, scorechange, 1);
-}
-
-function multiscore(player, scorechange) {
-    changeScore(player, scorechange, 2);
-}
-
-function changeScore(player, scorechange, scoreType) {
-    var playerFields = document.getElementById(player);
-    var playerScore = playerFields.getElementsByTagName('p');
-    var immediateUpdate = false;
-    if (scoreType === 2) {
-        immediateUpdate = true
-        scoreType = 0;
-    }
-    var currentScore = playerScore[scoreType].innerHTML;
-
-    newScore = +currentScore + +scorechange;
-    playerScore[scoreType].innerHTML = newScore;
-    if (immediateUpdate) {
-        if (timerRecord) clearTimeout(timerRecord);
-        record();
-    } else {
-        recordTimer();
-    }
-}
-
-function recordTimer() {
-    if (timerRecord) clearTimeout(timerRecord);
-    timerRecord = window.setTimeout(record, 1100);
-}
-
-function record() {
-    newRecord('me');
-    newRecord('you');
 }
 
 function log(player, currentScore, scoreChange, type) {
@@ -279,16 +153,90 @@ function newRecord(player) {
     var scores = document.querySelectorAll('#' + player + ' p'),
         currentScore = scores[0].innerHTML,
         currentScorePoison = scores[1].innerHTML,
-        scorechangeMain = currentScore - lastRecorded[player];
+        scorechangeMain = currentScore - lastRecorded[player],
         scorechangePoison = currentScorePoison - lastRecorded.poison[player];
 
     log(player, currentScore, scorechangeMain);
     log(player, currentScorePoison, scorechangePoison, 'poison');
 }
 
+function record() {
+    newRecord('me');
+    newRecord('you');
+}
+
+function recordTimer() {
+    if (timerRecord) {
+        clearTimeout(timerRecord);
+    }
+    timerRecord = window.setTimeout(record, 1100);
+}
+
+function changeScore(player, scorechange, scoreType) {
+    var playerFields = document.getElementById(player),
+        playerScore = playerFields.getElementsByTagName('p'),
+        immediateUpdate = false,
+        currentScore,
+        newScore;
+
+    if (scoreType === 2) {
+        immediateUpdate = true;
+        scoreType = 0;
+    }
+    currentScore = +playerScore[scoreType].innerHTML;
+
+    newScore = +scorechange + currentScore;
+    playerScore[scoreType].innerHTML = newScore;
+    if (immediateUpdate) {
+        if (timerRecord) {
+            clearTimeout(timerRecord);
+        }
+        record();
+    } else {
+        recordTimer();
+    }
+}
+
 function init() {
-    var startingLife = Q$('start') || 20;
+    var startingLife = Q$('start') || 20, multiMax = 20;
     startingLife = +startingLife;
+
+    function multiScore() {
+        var player = 'me';
+        if (this.id.indexOf('You') > -1) {
+            player = 'you';
+        }
+        changeScore(player, this.value, 2);
+        this.selectedIndex = 0;
+    }
+
+    // Build multiselect dropdowns
+    function addOptions(el, plusOrMinus) {
+        var ii, option, mod = 1;
+
+        if (plusOrMinus === '-') {
+            mod = -1;
+        }
+
+        function signAndVal(val, sign) {
+            if (val === 0) {
+                return 0;
+            }
+            return sign + val;
+        }
+
+        for (ii = 0; ii <= multiMax; ii = ii + 1) {
+            option = document.createElement('option');
+            option.value = ii * mod;
+            option.innerHTML = signAndVal(ii, plusOrMinus);
+            el.appendChild(option);
+        }
+        el.addEventListener('change', multiScore);
+    }
+    addOptions(document.getElementById('selectMeMinus'), '-');
+    addOptions(document.getElementById('selectMePlus'), '+');
+    addOptions(document.getElementById('selectYouMinus'), '-');
+    addOptions(document.getElementById('selectYouPlus'), '+');
 
     lastRecorded.me = startingLife;
     lastRecorded.you = startingLife;
@@ -299,20 +247,6 @@ function init() {
     document.querySelector('#you p').innerHTML = startingLife;
     document.querySelector('#me_record p').innerHTML = startingLife;
     document.querySelector('#you_record p').innerHTML = startingLife;
-
-    function multiScore() {
-        var player = 'me';
-        if (this.id.indexOf('You') > -1) {
-            player = 'you';
-        }
-        multiscore(player, this.value);
-        this.selectedIndex = 0;
-    }
-
-    document.getElementById('selectMeMinus').addEventListener('change', multiScore);
-    document.getElementById('selectMePlus').addEventListener('change', multiScore);
-    document.getElementById('selectYouMinus').addEventListener('change', multiScore);
-    document.getElementById('selectYouPlus').addEventListener('change', multiScore);
 }
 
 init();
