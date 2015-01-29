@@ -3,14 +3,19 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+<link rel="manifest" href="manifest.json">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
 <title>MtG SimpleScore</title>
 
 <style>
 * {margin: 0; padding: 0;}
 html {font-family: droid sans, sans-serif; padding: 0 1%; }
-h1 {margin: 2% 1% 1%; font-size: 18px; }
+h1 {margin: 5px 1%; font-size: 18px; }
 .article {position: fixed; width: 99%; top: 5px; }
-.article > p {float: right; padding-right: 3%; }
+.article > p {float: right; padding: 5px 3% 0 0; }
+
+/* Buttons */
 fieldset {
     margin: 0 1%; padding: 5px 2% 10px;
     width: 43.5%;
@@ -21,34 +26,33 @@ fieldset {
     color: #fff; 
 }
 legend {padding: 0 4px; background: #333; border-radius: 5px; font-size: 18px; }
-#record {padding-top: 150px; }
-#record > div {width: 43%; float: left; margin: 0 1%; padding: 2%; border: 1px solid #fff; overflow: auto; }
-#record p {float: none; width: auto; text-align: left; color: #700; }
-#record p.poison {color: #0c0; text-align: right; }
-#me_record {margin-right: 3%;}
+fieldset p {width: 30%; float: left; text-align: center; margin: 0; color: #fcc; }
 
-label {display: block; clear: both; padding-top: .5em; font-size: 80%;}
+h5 {width: 19%; cursor: pointer; }
+h5, select {
+    background: #ddd;
+    border-radius: 5px;
+    float: left;
+    text-align: center;
+    color: #000;
+}
+select {font-size: 50%; width: 13.5%;  margin: 0 1%; }
+select:focus {outline: 0 none; }
 
+/* Poison */
+label {display: block; clear: both; padding-top: .5em; font-size: 80%; }
 div.poison {font-size: 70%; padding: 0; width: 80%; margin: 0 23%; }
-div.poison label {padding-top: 0.5em;}
+div.poison label {padding-top: 0.5em; }
 div.poison p {width: 20%; color: #0e0; }
 
-fieldset p {width: 30%; float: left; text-align: center; margin: 0; color: #fcc; }
-h5 {width: 20%; cursor: pointer; }
-h5, h6, select {
-    font-family: sans-serif; 
-    background: #ddd; 
-    font-size: 100%; 
-    border-radius: 5px; 
-    float: left; 
-    text-align: center;
-    border: 1px solid #999;
-    color: #000; 
-}
-h6, select {font-size: 50%; margin: 0; width: 13.5%; }
-select:focus {outline: 0 none; }
+/* Log */
+#record {padding-top: 150px; }
+#record > div {width: 43%; float: left; margin: 0 1%; padding: 10px 2%; border: 1px solid #fff; overflow: auto; }
+#record p {text-align: left; color: #700; }
+#record p.poison {color: #0c0; text-align: right; }
+#me_record {margin-right: 3%; }
+
 </style>
-</head>
 
 <body>
 <div class="article">
@@ -82,7 +86,9 @@ select:focus {outline: 0 none; }
     <option value="-20">-20
 </select>
 <h5 onclick="score('me', -1)">-1</h5>
+
 <p>20</p>
+
 <h5 onclick="score('me', 1)">+1</h5>
 <select id="selectMePlus">
     <option value="0">0
@@ -144,7 +150,9 @@ select:focus {outline: 0 none; }
     <option value="-20">-20
 </select>
 <h5 onclick="score('you', -1)">-1</h5>
+
 <p>20</p>
+
 <h5 onclick="score('you', 1)">+1</h5>
 <select id="selectYouPlus">
     <option value="0">0
@@ -192,11 +200,7 @@ select:focus {outline: 0 none; }
 
 <script>
 var timerRecord, lastRecorded = {};
-lastRecorded.me = 20;
-lastRecorded.you = 20;
 lastRecorded.poison = {};
-lastRecorded.poison.me = 0;
-lastRecorded.poison.you = 0;
 
 function Q$(name) {
     var reQs, val;
@@ -207,7 +211,6 @@ function Q$(name) {
     }
     return "";
 }
-
 
 function score(player, scorechange) {
     changeScore(player, scorechange, 0);
@@ -278,7 +281,7 @@ function newRecord(player) {
         currentScorePoison = scores[1].innerHTML,
         scorechangeMain = currentScore - lastRecorded[player];
         scorechangePoison = currentScorePoison - lastRecorded.poison[player];
-    
+
     log(player, currentScore, scorechangeMain);
     log(player, currentScorePoison, scorechangePoison, 'poison');
 }
@@ -286,37 +289,32 @@ function newRecord(player) {
 function init() {
     var startingLife = Q$('start') || 20;
     startingLife = +startingLife;
-    
+
     lastRecorded.me = startingLife;
     lastRecorded.you = startingLife;
+    lastRecorded.poison.me = 0;
+    lastRecorded.poison.you = 0;
+
     document.querySelector('#me p').innerHTML = startingLife;
     document.querySelector('#you p').innerHTML = startingLife;
     document.querySelector('#me_record p').innerHTML = startingLife;
     document.querySelector('#you_record p').innerHTML = startingLife;
 
-    document.getElementById('selectMeMinus').addEventListener('change', function () {
-        multiscore('me', this.value);
+    function multiScore() {
+        var player = 'me';
+        if (this.id.indexOf('You') > -1) {
+            player = 'you';
+        }
+        multiscore(player, this.value);
         this.selectedIndex = 0;
-    });
+    }
 
-    document.getElementById('selectMePlus').addEventListener('change', function () {
-        multiscore('me', this.value);
-        this.selectedIndex = 0;
-    });
-
-    document.getElementById('selectYouMinus').addEventListener('change', function () {
-        multiscore('you', this.value);
-        this.selectedIndex = 0;
-    });
-
-    document.getElementById('selectYouPlus').addEventListener('change', function () {
-        multiscore('you', this.value);
-        this.selectedIndex = 0;
-    });
+    document.getElementById('selectMeMinus').addEventListener('change', multiScore);
+    document.getElementById('selectMePlus').addEventListener('change', multiScore);
+    document.getElementById('selectYouMinus').addEventListener('change', multiScore);
+    document.getElementById('selectYouPlus').addEventListener('change', multiScore);
 }
 
 init();
 
 </script>
-</body>
-</html>
