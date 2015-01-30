@@ -12,8 +12,8 @@
 * {margin: 0; padding: 0;}
 html {font-family: droid sans, sans-serif; padding: 0 1%; }
 h1 {margin: 5px 1%; font-size: 18px; }
-.article {position: fixed; width: 99%; top: 5px; }
-.article > p {float: right; padding: 5px 3% 0 0; }
+.controlPanel {position: fixed; width: 99%; top: 5px; }
+.controlPanel > p {float: right; padding: 5px 3% 0 0; }
 
 /* Buttons */
 fieldset {
@@ -46,24 +46,28 @@ div.poison label {padding-top: 0.5em; }
 div.poison p {width: 20%; color: #0e0; }
 
 /* Log */
-#record {padding-top: 145px; }
-#record > div {
+#log {padding-top: 145px; }
+#log > div {
     margin: 0 1%; padding: 10px 2%;
     width: 43%;
     float: left;
     border: 1px solid #fff;
     overflow: auto;
 }
-#record p {text-align: left; color: #700; }
-#record p.poison {color: #0c0; text-align: right; }
-#me_record {margin-right: 3%; }
+#log p {text-align: left; color: #700; }
+#log p.poison {color: #0c0; text-align: right; }
+#me_log {margin-right: 3%; }
 
 </style>
 
 <body>
-<div class="article">
+<div class="controlPanel">
 
-<p><a href="?">Reset 20</a> <a href="?start=30">30</a> <a href="?start=40">40</a></p>
+<p>
+<a href="?">Reset 20</a>
+<a href="?start=30">30</a>
+<a href="?start=40">40</a>
+
 <h1>MtG SimpleScore</h1>
 
 <fieldset id="me">
@@ -104,11 +108,11 @@ div.poison p {width: 20%; color: #0e0; }
 
 </div>
 
-<div id="record">
-<div id="me_record">
+<div id="log">
+<div id="me_log">
 <p>20</p>
 </div>
-<div id="you_record">
+<div id="you_log">
 <p>20</p>
 </div>
 </div>
@@ -131,7 +135,7 @@ function Q$(name) {
 function log(player, currentScore, scoreChange, type) {
     var recordTally, logEntry, scoreChangePrefix = '';
     if (scoreChange) {
-        recordTally = document.getElementById(player + '_record');
+        recordTally = document.getElementById(player + '_log');
         logEntry = document.createElement('p');
 
         if (scoreChange > 0) {
@@ -198,7 +202,7 @@ function changeScore(player, scorechange, scoreType) {
 }
 
 function init() {
-    var startingLife = Q$('start') || 20, multiMax = 20;
+    var startingLife = Q$('start') || 20, multiMax = 20, links, ii;
     startingLife = +startingLife;
 
     function multiScore() {
@@ -243,8 +247,18 @@ function init() {
 
     document.querySelector('#me p').innerHTML = startingLife;
     document.querySelector('#you p').innerHTML = startingLife;
-    document.querySelector('#me_record p').innerHTML = startingLife;
-    document.querySelector('#you_record p').innerHTML = startingLife;
+    document.querySelector('#me_log p').innerHTML = startingLife;
+    document.querySelector('#you_log p').innerHTML = startingLife;
+
+    // To make reset links open in mobile Safari app
+    links = document.getElementsByTagName('a');
+    function appLink(e) {
+        e.preventDefault();
+        window.location = this.href;
+    }
+    for (ii = 0; ii < links.length; ii = ii + 1) {
+        links[ii].onclick = appLink;
+    }
 }
 
 init();
