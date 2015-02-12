@@ -3,6 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+<meta http-equiv="x-ua-compatible" content="IE=Edge">
 <link rel="manifest" href="manifest.json">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-capable" content="yes">
@@ -11,39 +12,38 @@
 <style>
 * {margin: 0; padding: 0;}
 html {font-family: droid sans, sans-serif; padding: 0 1%; }
-h1 {margin: 5px 1%; font-size: 18px; }
-.controlPanel {position: fixed; width: 99%; top: 5px; }
+h1 {padding: 5px; font-size: 18px; color: #5d5d5d; background: #e5e5e5; border-bottom: 1px solid #dbdbdb; }
+.controlPanel {position: fixed; width: 100%; top: 0; left: 0; }
 .controlPanel > p {float: right; padding: 5px 3% 0 0; }
 
 /* Buttons */
 fieldset {
-    margin: 0 1%; padding: 5px 2% 10px;
-    width: 43.5%;
+    margin: 10px 1%; padding: 5px 2% 10px;
+    width: 44%;
     float: left;
     font-size: 24px;
     border: 0 none;
-    background: #333; 
+    background: #666; 
     color: #fff; 
 }
-legend {padding: 0 4px; background: #333; border-radius: 5px; font-size: 18px; }
+legend {padding: 0 4px; background: #666; border-radius: 5px; font-size: 18px; }
 fieldset p {width: 30%; float: left; text-align: center; margin: 0; color: #fcc; }
 
-h5 {width: 19%; cursor: pointer; }
-h5, select {
+h4, h5 {width: 19%; cursor: pointer; }
+h4 {width: 35%; height; 100%; }
+h4, h5 {
     background: #ddd;
     border-radius: 5px;
     float: left;
     text-align: center;
     color: #000;
 }
-select {font-size: 50%; width: 13.5%;  margin: 0 1%; }
-select:focus {outline: 0 none; }
 
 /* Poison */
-label {display: block; clear: both; padding-top: .5em; font-size: 80%; }
-div.poison {font-size: 70%; padding: 0; width: 80%; margin: 0 23%; }
-div.poison label {padding-top: 0.5em; }
-div.poison p {width: 20%; color: #0e0; }
+label {display: block; clear: both; padding-top: .5em; font-size: 55%; text-align: center; }
+div.poison {font-size: 70%; padding: 0; width: 40%; margin: 0 auto; clear: both; overflow: auto; }
+div.poison p {width: 33%; color: #0e0; }
+div.poison h5 {width: 33%; }
 
 /* Log */
 #log {padding-top: 145px; }
@@ -58,6 +58,27 @@ div.poison p {width: 20%; color: #0e0; }
 #log p.poison {color: #0c0; text-align: right; }
 #me_log {margin-right: 3%; }
 
+/* Number picker */
+#numberPicker {
+    display: none;
+    background-color: rgba(0, 0, 0, .8);
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+}
+#numberPicker > div {
+    margin: 5% 0 0 10%;
+    display: table; border-collapse: collapse; 
+    width: 80%; height: 90%;
+}
+#numberPicker > div > div {display: table-row}
+#numberPicker > div > div > p {
+    display: table-cell;
+    background: #fff; border: 1px solid #ddd;
+    text-align: center; vertical-align: middle;
+    cursor: pointer;
+}
+#numberPicker > div > div > p:hover {background: #eee; }
 </style>
 
 <body>
@@ -73,15 +94,13 @@ div.poison p {width: 20%; color: #0e0; }
 <fieldset id="me">
 <legend>Me</legend>
 <div class="life">
-<select id="selectMeMinus"></select>
-<h5 onclick="changeScore('me', -1, 0)">-1</h5>
+<h4 onclick="pickNumber(-1, 'me')">-</h4>
 <p>20</p>
-<h5 onclick="changeScore('me', 1, 0)">+1</h5>
-<select id="selectMePlus"></select>
+<h4 onclick="pickNumber(1, 'me')">+</h4>
 </div>
 
-<div class="poison">
 <label>Poison</label>
+<div class="poison">
 <h5 onclick="changeScore('me', -1, 1)">-1</h5>
 <p>0</p>
 <h5 onclick="changeScore('me', 1, 1)">+1</h5>
@@ -91,15 +110,13 @@ div.poison p {width: 20%; color: #0e0; }
 <fieldset id="you">
 <legend>You</legend>
 <div class="life">
-<select id="selectYouMinus"></select>
-<h5 onclick="changeScore('you', -1, 0)">-1</h5>
+<h4 onclick="pickNumber(-1, 'you')">-</h4>
 <p>20</p>
-<h5 onclick="changeScore('you', 1, 0)">+1</h5>
-<select id="selectYouPlus"></select>
+<h4 onclick="pickNumber(1, 'you')">+</h4>
 </div>
 
-<div class="poison">
 <label>Poison</label>
+<div class="poison">
 <h5 onclick="changeScore('you', -1, 1)">-1</h5>
 <p>0</p>
 <h5 onclick="changeScore('you', 1, 1)">+1</h5>
@@ -117,9 +134,24 @@ div.poison p {width: 20%; color: #0e0; }
 </div>
 </div>
 
+<div id="numberPicker" onclick="closeNumberPicker()">
+<div>
+<div><p>1<p>11</div>
+<div><p>2<p>12</div>
+<div><p>3<p>13</div>
+<div><p>4<p>14</div>
+<div><p>5<p>15</div>
+<div><p>6<p>16</div>
+<div><p>7<p>17</div>
+<div><p>8<p>18</div>
+<div><p>9<p>19</div>
+<div><p>10<p>20</div>
+</div>
+</div>
+
 <script>
 /*jslint browser: true, sloppy: true */
-var timerRecord, lastLogged = {};
+var timerRecord, lastLogged = {}, activePlayer, activeFactor, activeType = 'life';
 lastLogged.poison = {};
 
 function Q$(name) {
@@ -130,6 +162,15 @@ function Q$(name) {
         return decodeURIComponent(val[1]);
     }
     return "";
+}
+
+function addEvent(el, evType, fn, bubble) {
+    bubble = bubble || false;
+    if (el.addEventListener) {
+        el.addEventListener(evType, fn, bubble);
+    } else if (el.attachEvent) {
+        el.attachEvent("on" + evType, fn);
+    }
 }
 
 function log(player, currentScore, scoreChange, type) {
@@ -201,8 +242,19 @@ function changeScore(player, scorechange, scoreType) {
     }
 }
 
+function pickNumber(factor, player) {
+    var picker = document.getElementById('numberPicker');
+    activeFactor = factor;
+    activePlayer = player;
+    picker.style.display = 'block';
+}
+
+function closeNumberPicker() {
+    document.getElementById('numberPicker').style.display = 'none';
+}
+
 function init() {
-    var startingLife = Q$('start') || 20, multiMax = 20, links, ii;
+    var startingLife = Q$('start') || 20, multiMax = 20, numberButtons, links, ii;
     startingLife = +startingLife;
 
     function multiScore() {
@@ -213,32 +265,16 @@ function init() {
         changeScore(player, this.value, 2);
         this.selectedIndex = 0;
     }
-
-    function buildMultiselectDropdown(el, plusOrMinus) {
-        var ii, option, mod = 1;
-        if (plusOrMinus === '-') {
-            mod = -1;
-        }
-
-        function signAndVal(val, sign) {
-            if (val === 0) {
-                return 0;
-            }
-            return sign + val;
-        }
-
-        for (ii = 0; ii <= multiMax; ii = ii + 1) {
-            option = document.createElement('option');
-            option.value = ii * mod;
-            option.innerHTML = signAndVal(ii, plusOrMinus);
-            el.appendChild(option);
-        }
-        el.addEventListener('change', multiScore);
+    
+    function pickScore(e) {
+        var el = e.target || e.srcElement;
+        changeScore(activePlayer, +el.innerHTML * activeFactor, 2);
+        closeNumberPicker();
     }
-    buildMultiselectDropdown(document.getElementById('selectMeMinus'), '-');
-    buildMultiselectDropdown(document.getElementById('selectMePlus'), '+');
-    buildMultiselectDropdown(document.getElementById('selectYouMinus'), '-');
-    buildMultiselectDropdown(document.getElementById('selectYouPlus'), '+');
+    numberButtons = document.querySelectorAll('#numberPicker > div > div > p');
+    for (ii = 0; ii < numberButtons.length; ii = ii + 1) {
+        addEvent(numberButtons[ii], 'click', pickScore);
+    }
 
     lastLogged.me = startingLife;
     lastLogged.you = startingLife;
