@@ -23,7 +23,7 @@ fieldset {
     float: left;
     font-size: 24px;
     border: 0 none;
-    background: #666; 
+    background: #666;
     color: #fff; 
 }
 legend {padding: 0 4px; background: #666; border-radius: 5px; font-size: 18px; }
@@ -101,9 +101,9 @@ div.poison h5 {width: 33%; }
 
 <label>Poison</label>
 <div class="poison">
-<h5 onclick="changeScore('me', -1, 1)">-1</h5>
+<h5 onclick="pickNumber(-1, 'me', true)">-1</h5>
 <p>0</p>
-<h5 onclick="changeScore('me', 1, 1)">+1</h5>
+<h5 onclick="pickNumber(1, 'me', true)">+1</h5>
 </div>
 </fieldset>
 
@@ -117,9 +117,9 @@ div.poison h5 {width: 33%; }
 
 <label>Poison</label>
 <div class="poison">
-<h5 onclick="changeScore('you', -1, 1)">-1</h5>
+<h5 onclick="pickNumber(-1, 'you', true)">-1</h5>
 <p>0</p>
-<h5 onclick="changeScore('you', 1, 1)">+1</h5>
+<h5 onclick="pickNumber(1, 'you', true)">+1</h5>
 </div>
 </fieldset>
 
@@ -151,8 +151,7 @@ div.poison h5 {width: 33%; }
 
 <script>
 /*jslint browser: true, sloppy: true */
-var timerRecord, lastLogged = {}, activePlayer, activeFactor, activeType = 'life';
-lastLogged.poison = {};
+var activePlayer, activeFactor, activePoison;
 
 function Q$(name) {
     var reQs, val;
@@ -164,16 +163,7 @@ function Q$(name) {
     return "";
 }
 
-function addEvent(el, evType, fn, bubble) {
-    bubble = bubble || false;
-    if (el.addEventListener) {
-        el.addEventListener(evType, fn, bubble);
-    } else if (el.attachEvent) {
-        el.attachEvent("on" + evType, fn);
-    }
-}
-
-function log(player, currentScore, scoreChange, type) {
+function log(player, currentScore, scoreChange, isPoison) {
     var recordTally, logEntry, scoreChangePrefix = '';
     if (scoreChange) {
         recordTally = document.getElementById(player + '_log');
@@ -183,69 +173,27 @@ function log(player, currentScore, scoreChange, type) {
             scoreChangePrefix = '+';
         }
         logEntry.innerHTML = currentScore + ' (' + scoreChangePrefix + scoreChange + ')';
-        if (type === 'poison') {
+        if (isPoison) {
             logEntry.className = 'poison';
-            lastLogged.poison[player] = currentScore;
-        } else {
-            lastLogged[player] = currentScore;
         }
 
         recordTally.appendChild(logEntry);
     }
 }
 
-function newRecord(player) {
-    var scores = document.querySelectorAll('#' + player + ' p'),
-        currentScore = scores[0].innerHTML,
-        currentScorePoison = scores[1].innerHTML,
-        scorechangeMain = currentScore - lastLogged[player],
-        scorechangePoison = currentScorePoison - lastLogged.poison[player];
+function showScore(player, scoreChange, isPoison) {
+    var currentScore, scores = document.querySelectorAll('#' + player + ' p'), iType = Number(isPoison);
 
-    log(player, currentScore, scorechangeMain);
-    log(player, currentScorePoison, scorechangePoison, 'poison');
+    currentScore = +scores[iType].innerHTML + scoreChange;
+    scores[iType].innerHTML = currentScore;
+    log(player, currentScore, scoreChange, isPoison);
 }
 
-function record() {
-    newRecord('me');
-    newRecord('you');
-}
-
-function recordTimer() {
-    if (timerRecord) {
-        clearTimeout(timerRecord);
-    }
-    timerRecord = window.setTimeout(record, 1100);
-}
-
-function changeScore(player, scorechange, scoreType) {
-    var playerFields = document.getElementById(player),
-        playerScore = playerFields.getElementsByTagName('p'),
-        immediateUpdate = false,
-        currentScore,
-        newScore;
-
-    if (scoreType === 2) {
-        immediateUpdate = true;
-        scoreType = 0;
-    }
-    currentScore = +playerScore[scoreType].innerHTML;
-
-    newScore = +scorechange + currentScore;
-    playerScore[scoreType].innerHTML = newScore;
-    if (immediateUpdate) {
-        if (timerRecord) {
-            clearTimeout(timerRecord);
-        }
-        record();
-    } else {
-        recordTimer();
-    }
-}
-
-function pickNumber(factor, player) {
+function pickNumber(factor, player, isPoison) {
     var picker = document.getElementById('numberPicker');
     activeFactor = factor;
     activePlayer = player;
+    activePoison = !!isPoison;
     picker.style.display = 'block';
 }
 
@@ -254,32 +202,18 @@ function closeNumberPicker() {
 }
 
 function init() {
-    var startingLife = Q$('start') || 20, multiMax = 20, numberButtons, links, ii;
+    var startingLife = Q$('start') || 20, numberButtons, links, ii;
     startingLife = +startingLife;
 
-    function multiScore() {
-        var player = 'me';
-        if (this.id.indexOf('You') > -1) {
-            player = 'you';
-        }
-        changeScore(player, this.value, 2);
-        this.selectedIndex = 0;
-    }
-    
     function pickScore(e) {
         var el = e.target || e.srcElement;
-        changeScore(activePlayer, +el.innerHTML * activeFactor, 2);
+        showScore(activePlayer, el.innerHTML * activeFactor, activePoison);
         closeNumberPicker();
     }
     numberButtons = document.querySelectorAll('#numberPicker > div > div > p');
     for (ii = 0; ii < numberButtons.length; ii = ii + 1) {
-        addEvent(numberButtons[ii], 'click', pickScore);
+        numberButtons[ii].addEventListener('click', pickScore, false);
     }
-
-    lastLogged.me = startingLife;
-    lastLogged.you = startingLife;
-    lastLogged.poison.me = 0;
-    lastLogged.poison.you = 0;
 
     document.querySelector('#me p').innerHTML = startingLife;
     document.querySelector('#you p').innerHTML = startingLife;
