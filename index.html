@@ -222,7 +222,7 @@ function init() {
         numberButtons[ii].addEventListener(touchEvent(), pickScore);
     }
     buttons = document.querySelectorAll('h4');
-    buttons[0].addEventListener(touchEvent(), function () {pickNumber(1, 'me'); });
+    buttons[0].addEventListener(touchEvent(), function () {pickNumber(-1, 'me'); });
     buttons[1].addEventListener(touchEvent(), function () {pickNumber(1, 'me'); });
     buttons[2].addEventListener(touchEvent(), function () {pickNumber(-1, 'you'); });
     buttons[3].addEventListener(touchEvent(), function () {pickNumber(1, 'you'); });
