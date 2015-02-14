@@ -94,32 +94,32 @@ div.poison h5 {width: 33%; }
 <fieldset id="me">
 <legend>Me</legend>
 <div class="life">
-<h4 onclick="pickNumber(-1, 'me')">-</h4>
+<h4>-</h4>
 <p>20</p>
-<h4 onclick="pickNumber(1, 'me')">+</h4>
+<h4>+</h4>
 </div>
 
 <label>Poison</label>
 <div class="poison">
-<h5 onclick="pickNumber(-1, 'me', true)">-</h5>
+<h5>-</h5>
 <p>0</p>
-<h5 onclick="pickNumber(1, 'me', true)">+</h5>
+<h5>+</h5>
 </div>
 </fieldset>
 
 <fieldset id="you">
 <legend>You</legend>
 <div class="life">
-<h4 onclick="pickNumber(-1, 'you')">-</h4>
+<h4>-</h4>
 <p>20</p>
-<h4 onclick="pickNumber(1, 'you')">+</h4>
+<h4>+</h4>
 </div>
 
 <label>Poison</label>
 <div class="poison">
-<h5 onclick="pickNumber(-1, 'you', true)">-</h5>
+<h5>-</h5>
 <p>0</p>
-<h5 onclick="pickNumber(1, 'you', true)">+</h5>
+<h5>+</h5>
 </div>
 </fieldset>
 
@@ -163,6 +163,13 @@ function Q$(name) {
     return "";
 }
 
+function touchEvent() {
+    if ('ontouchstart' in window || 'onmsgesturechange' in window) {
+        return 'touchstart';
+    }
+    return 'click';
+}
+
 function log(player, currentScore, scoreChange, isPoison) {
     var recordTally, logEntry, scoreChangePrefix = '';
     if (scoreChange) {
@@ -202,7 +209,7 @@ function closeNumberPicker() {
 }
 
 function init() {
-    var startingLife = Q$('start') || 20, numberButtons, links, ii;
+    var startingLife = Q$('start') || 20, buttons, numberButtons, links, ii;
     startingLife = +startingLife;
 
     function pickScore(e) {
@@ -214,6 +221,17 @@ function init() {
     for (ii = 0; ii < numberButtons.length; ii = ii + 1) {
         numberButtons[ii].addEventListener('click', pickScore, false);
     }
+    buttons = document.querySelectorAll('h4');
+    buttons[0].addEventListener('click', function () {pickNumber(-1, 'me'); });
+    buttons[1].addEventListener('click', function () {pickNumber(1, 'me'); });
+    buttons[2].addEventListener('click', function () {pickNumber(-1, 'you'); });
+    buttons[3].addEventListener('click', function () {pickNumber(1, 'you'); });
+    
+    buttons = document.querySelectorAll('h5');
+    buttons[0].addEventListener('click', function () {pickNumber(-1, 'me', true); });
+    buttons[1].addEventListener('click', function () {pickNumber(1, 'me', true); });
+    buttons[2].addEventListener('click', function () {pickNumber(-1, 'you', true); });
+    buttons[3].addEventListener('click', function () {pickNumber(1, 'you', true); });
 
     document.querySelector('#me p').innerHTML = startingLife;
     document.querySelector('#you p').innerHTML = startingLife;
