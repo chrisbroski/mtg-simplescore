@@ -78,7 +78,6 @@ div.poison h5 {width: 33%; }
     text-align: center; vertical-align: middle;
     cursor: pointer;
 }
-#numberPicker > div > div > p:hover {background: #eee; }
 </style>
 
 <body>
@@ -134,7 +133,7 @@ div.poison h5 {width: 33%; }
 </div>
 </div>
 
-<div id="numberPicker" onclick="closeNumberPicker()">
+<div id="numberPicker">
 <div>
 <div><p>1<p>11</div>
 <div><p>2<p>12</div>
@@ -217,12 +216,13 @@ function init() {
         showScore(activePlayer, el.innerHTML * activeFactor, activePoison);
         closeNumberPicker();
     }
+    document.getElementById('numberPicker').addEventListener(touchEvent(), closeNumberPicker);
     numberButtons = document.querySelectorAll('#numberPicker > div > div > p');
     for (ii = 0; ii < numberButtons.length; ii = ii + 1) {
-        numberButtons[ii].addEventListener('click', pickScore, false);
+        numberButtons[ii].addEventListener(touchEvent(), pickScore);
     }
     buttons = document.querySelectorAll('h4');
-    buttons[0].addEventListener(touchEvent(), function () {pickNumber(-1, 'me'); });
+    buttons[0].addEventListener(touchEvent(), function () {pickNumber(1, 'me'); });
     buttons[1].addEventListener(touchEvent(), function () {pickNumber(1, 'me'); });
     buttons[2].addEventListener(touchEvent(), function () {pickNumber(-1, 'you'); });
     buttons[3].addEventListener(touchEvent(), function () {pickNumber(1, 'you'); });
