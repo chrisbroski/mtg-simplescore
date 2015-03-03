@@ -162,6 +162,15 @@ function Q$(name) {
     return "";
 }
 
+function getEventTarget(e) {
+    var targ;
+    targ = e.target || e.srcElement;
+    if (targ.nodeType === 3) { // defeat Safari bug
+        targ = targ.parentNode;
+    }
+    return targ;
+}
+
 function touchEvent() {
     if ('ontouchstart' in window || 'onmsgesturechange' in window) {
         return 'touchstart';
@@ -212,7 +221,7 @@ function init() {
     startingLife = +startingLife;
 
     function pickScore(e) {
-        var el = e.target || e.srcElement;
+        var el getEventTarget(e);
         showScore(activePlayer, el.innerHTML * activeFactor, activePoison);
         closeNumberPicker();
     }
