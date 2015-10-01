@@ -65,7 +65,7 @@ div.poison h5 {width: 33%; }
 #log {padding: 145px 0 85px; font-family: monospace; }
 #log > div {border-bottom: 1px solid #aaa; overflow: auto; }
 #log > div > div {
-    margin: 0 1%; padding: 10px 2%;
+    margin: 0 1%; padding: 4px 2%;
     width: 43%;
     float: left;
     border: 1px solid #fff;
@@ -99,8 +99,17 @@ div.poison h5 {width: 33%; }
     cursor: pointer;
 }
 
-#commandBar {position: fixed; width: 100%; bottom: 0; left: 0; z-index: 1; }
-#commandBar fieldset {width: 94%; padding: 10px 2%;}
+#commandBar {position: fixed; width: 100%; bottom: -0.5%; left: 0; z-index: 1; text-align: right; }
+#commandBar fieldset {width: 94%; padding: 5px 2%;}
 #commandBar #nextTurn {font-size: 20px; padding: 0.1em 1em 0; border-radius: 5px; background: #ddd; color: #000; display: inline-block; }
 
 #divider {height: 100vh; width: 2%; background: #fff; position: absolute; top: 0; left: 49%; }
+
+/* hiding poison for now - come up with a way to pop it back in if needed */
+div.poison, label {display: none; }
+#log {padding-top: 105px; }
+
+/*  iOS 7 statusbar */
+html.ios7 h1 {padding-top: 20px; }
+html.ios7 .controlPanel > p {padding-top: 25px; }
+html.ios7 #log {padding-top: 125px; }

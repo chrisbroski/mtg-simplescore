@@ -23,7 +23,12 @@ var app = {
         document.addEventListener('deviceready', this.onDeviceReady, false);
     },
     onDeviceReady: function() {
-        console.log('call init');
+        //console.log('call init');
+        if (parseFloat(window.device.version) >= 7.0) {
+            document.querySelector('html').className = "ios7";
+        }
+        //console.log(document.getElementById('deviceProperties').innerHTML);
+        //navigator.splashscreen.hide();
         init();
     }
 }, activePlayer, activeFactor, activePoison;
