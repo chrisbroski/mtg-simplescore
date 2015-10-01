@@ -43,7 +43,7 @@ fieldset {
     color: #fff; 
 }
 legend {padding: 0 4px; background: #666; border-radius: 5px; font-size: 18px; }
-fieldset p {width: 30%; float: left; text-align: center; margin: 0; color: #fcc; }
+fieldset p {width: 30%; float: left; text-align: center; margin: 0; }
 
 h4, h5 {width: 19%; cursor: pointer; }
 h4 {width: 35%; height; 100%; }
@@ -62,19 +62,20 @@ div.poison p {width: 33%; color: #0e0; }
 div.poison h5 {width: 33%; }
 
 /* Log */
-#log {padding-top: 145px; font-family: monospace; }
-#log > div {
+#log {padding: 145px 0 85px; font-family: monospace; }
+#log > div {border-bottom: 1px solid #aaa; overflow: auto; }
+#log > div > div {
     margin: 0 1%; padding: 10px 2%;
     width: 43%;
     float: left;
     border: 1px solid #fff;
     overflow: auto;
 }
-#log p {text-align: right; color: #000; font-size: 20px; font-weight: bold; s}
+#log p {text-align: right; color: #000; font-size: 20px; font-weight: bold; }
 #log p span {font-weight: normal; padding-right: 0.5em; }
 #log p span.gain {color: #f00; }
 #log p.poison {color: #0c0; }
-#me_log {margin-right: 3%; }
+.me_log {margin-right: 3%; }
 
 /* Number picker */
 #numberPicker {
@@ -98,3 +99,5 @@ div.poison h5 {width: 33%; }
 }
 
 #commandBar {position: fixed; width: 100%; bottom: 0; left: 0; }
+#commandBar fieldset {width: 94%;     padding: 10px 2%;}
+#commandBar #nextTurn {font-size: 24px; padding: 0.1em 1em 0; border-radius: 5px; background: #ddd; color: #000; display: inline-block; }

@@ -30,7 +30,7 @@ function touchEvent() {
 function log(player, currentScore, scoreChange, isPoison) {
     var recordTally, logEntry, scoreChangePrefix = '', changeType = '<span>';
     if (scoreChange) {
-        recordTally = document.getElementById(player + '_log');
+        recordTally = document.querySelector('#log > div:last-child .' + player + '_log');
         logEntry = document.createElement('p');
 
         if (scoreChange > 0) {
@@ -45,6 +45,7 @@ function log(player, currentScore, scoreChange, isPoison) {
         }
 
         recordTally.appendChild(logEntry);
+        window.scrollTo(0, document.body.scrollHeight);
     }
 }
 
@@ -68,8 +69,22 @@ function closeNumberPicker() {
     document.getElementById('numberPicker').style.display = 'none';
 }
 
+function newTurn() {
+    var turn = document.createElement('div'),
+        me_log = document.createElement('div'),
+        you_log = document.createElement('div');
+    
+    me_log.className = 'me_log';
+    you_log.className = 'you_log';
+    turn.appendChild(me_log);
+    turn.appendChild(you_log);
+    document.getElementById('log').appendChild(turn);
+    window.scrollTo(0, document.body.scrollHeight);
+}
+
 function nextTurn(e) {
-    console.log('next turn');
+    //console.log('next turn');
+    newTurn();
 }
 
 function init() {
@@ -100,8 +115,8 @@ function init() {
 
     document.querySelector('#me p').innerHTML = startingLife;
     document.querySelector('#you p').innerHTML = startingLife;
-    document.querySelector('#me_log p').innerHTML = startingLife;
-    document.querySelector('#you_log p').innerHTML = startingLife;
+    document.querySelector('.me_log p').innerHTML = startingLife;
+    document.querySelector('.you_log p').innerHTML = startingLife;
     
     document.getElementById('nextTurn').addEventListener('click', nextTurn);
 
