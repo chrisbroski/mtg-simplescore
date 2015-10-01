@@ -28,6 +28,7 @@ body {
 
 * {margin: 0; padding: 0; }
 html {font-family: droid sans, sans-serif; padding: 0 1%; height: 100%; overflow: auto; }
+body {height: 100%; overflow: auto; }
 h1 {padding: 5px; font-size: 18px; color: #5d5d5d; background: #e5e5e5; border-bottom: 1px solid #dbdbdb; }
 .controlPanel {position: fixed; width: 100%; top: 0; left: 0; z-index: 1; }
 .controlPanel > p {float: right; padding: 5px 3% 0 0; }
