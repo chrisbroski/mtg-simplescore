@@ -46,6 +46,7 @@ function log(player, currentScore, scoreChange, isPoison) {
 
         recordTally.appendChild(logEntry);
         window.scrollTo(0, document.body.scrollHeight);
+        document.getElementById('divider').style.height = '100%';
     }
 }
 
@@ -80,6 +81,7 @@ function newTurn() {
     turn.appendChild(you_log);
     document.getElementById('log').appendChild(turn);
     window.scrollTo(0, document.body.scrollHeight);
+    document.getElementById('divider').style.height = '100%';
 }
 
 function nextTurn(e) {
