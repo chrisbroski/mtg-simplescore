@@ -35,7 +35,9 @@ function log(player, currentScore, scoreChange, isPoison) {
 
         if (scoreChange > 0) {
             scoreChangePrefix = '+';
-            changeType = '<span class="gain">';
+            if (!isPoison) {
+                changeType = '<span class="gain">';
+            }
         }
         logEntry.innerHTML = changeType + '(' + scoreChangePrefix + scoreChange + ')</span>' + currentScore;
         if (isPoison) {
@@ -66,10 +68,13 @@ function closeNumberPicker() {
     document.getElementById('numberPicker').style.display = 'none';
 }
 
+function nextTurn(e) {
+    console.log('next turn');
+}
+
 function init() {
     var startingLife = Q$('start') || 20, buttons, numberButtons, links, ii;
     startingLife = +startingLife;
-    console.log('init');
 
     function pickScore(e) {
         var el = getEventTarget(e);
@@ -97,6 +102,8 @@ function init() {
     document.querySelector('#you p').innerHTML = startingLife;
     document.querySelector('#me_log p').innerHTML = startingLife;
     document.querySelector('#you_log p').innerHTML = startingLife;
+    
+    document.getElementById('nextTurn').addEventListener('click', nextTurn);
 
     // To make reset links open in mobile Safari app
     links = document.getElementsByTagName('a');
