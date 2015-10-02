@@ -95,6 +95,15 @@ function nextTurn(e) {
     newTurn();
 }
 
+function unDo() {
+    if (document.getElementById('numberPicker').style.display === 'block') {
+        console.log('close picker');
+        closeNumberPicker();
+    } else {
+        console.log('undo turn or score');
+    }
+}
+
 function init() {
     var startingLife = Q$('start') || 20, buttons, numberButtons, links, ii;
     startingLife = +startingLife;

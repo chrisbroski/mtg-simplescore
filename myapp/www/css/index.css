@@ -29,7 +29,7 @@ body {
 * {margin: 0; padding: 0; }
 html {font-family: droid sans, sans-serif; padding: 0 1%; height: 100%; overflow: auto; }
 body {height: 100%; overflow: auto; }
-h1 {padding: 5px 5px 3px; font-size: 18px; color: #5d5d5d; background: #e5e5e5; border-bottom: 1px solid #dbdbdb; }
+h1 {padding: 5px 5px 3px; font-size: 18px; color: #5d5d5d; background: #e5e5e5; border-bottom: 1px solid #dbdbdb; line-height: 1em; }
 .controlPanel {position: fixed; width: 100%; top: 0; left: 0; z-index: 1; }
 .controlPanel > p {float: right; padding: 5px 3% 0 0; }
 
@@ -65,7 +65,8 @@ div.poison h5 {width: 33%; }
 
 /* Log */
 #log {padding: 145px 0 65px; font-family: monospace; }
-#log > div {border-bottom: 1px solid #aaa; overflow: auto; }
+#log > div {border-top: 1px solid #aaa; overflow: auto; }
+#log > div:first-child {border-top: 0 none; }
 #log > div > div {
     margin: 0 1%; padding: 4px 2%;
     width: 43%;
