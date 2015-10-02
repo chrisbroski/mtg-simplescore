@@ -114,5 +114,5 @@ div.poison, label {display: none; }
 
 /*  iOS 7 statusbar */
 html.ios7 h1 {padding-top: 20px; }
-html.ios7 .controlPanel > p {padding-top: 25px; }
+html.ios7 .controlPanel > p {padding-top: 20px; }
 html.ios7 #log {padding-top: 125px; }
