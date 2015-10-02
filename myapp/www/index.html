@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<!--
+    Licensed to the Apache Software Foundation (ASF) under one
+    or more contributor license agreements.  See the NOTICE file
+    distributed with this work for additional information
+    regarding copyright ownership.  The ASF licenses this file
+    to you under the Apache License, Version 2.0 (the
+    "License"); you may not use this file except in compliance
+    with the License.  You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing,
+    software distributed under the License is distributed on an
+    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+     KIND, either express or implied.  See the License for the
+    specific language governing permissions and limitations
+    under the License.
+-->
+<html>
+<head>
+<meta http-equiv="Content-Security-Policy" content="default-src 'self' data: gap: https://ssl.gstatic.com 'unsafe-eval'; style-src 'self' 'unsafe-inline'; media-src *">
+<meta name="format-detection" content="telephone=no">
+<meta name="msapplication-tap-highlight" content="no">
+<meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width">
+<link rel="stylesheet" type="text/css" href="css/index.css">
+<title>MtG SimpleScore</title>
+</head>
+<body>
+
+<div class="controlPanel">
+
+<p>
+<a href="?">Reset 20</a>
+<a href="?start=30">30</a>
+<a href="?start=40">40</a>
+
+<h1>MtG SimpleScore</h1>
+
+<fieldset id="me">
+<legend>Me</legend>
+<div class="life">
+<h4>-</h4>
+<p>20</p>
+<h4>+</h4>
+</div>
+
+<label>Poison</label>
+<div class="poison">
+<h5>-</h5>
+<p>0</p>
+<h5>+</h5>
+</div>
+</fieldset>
+
+<fieldset id="you">
+<legend>You</legend>
+<div class="life">
+<h4>-</h4>
+<p>20</p>
+<h4>+</h4>
+</div>
+
+<label>Poison</label>
+<div class="poison">
+<h5>-</h5>
+<p>0</p>
+<h5>+</h5>
+</div>
+</fieldset>
+
+</div>
+
+<div id="log">
+<div>
+<div class="me_log">
+<p>20</p>
+</div>
+<div class="you_log">
+<p>20</p>
+</div>
+</div>
+</div>
+
+<div id="commandBar">
+<fieldset>
+<div id="nextTurn">Next Turn</div>
+</fieldset>
+</div>
+
+<div id="divider"></div>
+
+<div id="numberPicker">
+<div>
+<div><p>1<p>11</div>
+<div><p>2<p>12</div>
+<div><p>3<p>13</div>
+<div><p>4<p>14</div>
+<div><p>5<p>15</div>
+<div><p>6<p>16</div>
+<div><p>7<p>17</div>
+<div><p>8<p>18</div>
+<div><p>9<p>19</div>
+<div><p>10<p>20</div>
+</div>
+</div>
+
+<script type="text/javascript" src="cordova.js"></script>
+<script type="text/javascript" src="js/index.js"></script>
+<script type="text/javascript" src="js/score.js"></script>

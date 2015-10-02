@@ -7,78 +7,8 @@
 <link rel="manifest" href="manifest.json">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-capable" content="yes">
+<link rel="stylesheet" type="text/css" href="myapp/www/css/index.css">
 <title>MtG SimpleScore</title>
-
-<style>
-* {margin: 0; padding: 0;}
-html {font-family: droid sans, sans-serif; padding: 0 1%; }
-h1 {padding: 5px; font-size: 18px; color: #5d5d5d; background: #e5e5e5; border-bottom: 1px solid #dbdbdb; }
-.controlPanel {position: fixed; width: 100%; top: 0; left: 0; }
-.controlPanel > p {float: right; padding: 5px 3% 0 0; }
-
-/* Buttons */
-fieldset {
-    margin: 10px 1%; padding: 5px 2% 10px;
-    width: 44%;
-    float: left;
-    font-size: 24px;
-    border: 0 none;
-    background: #666;
-    color: #fff; 
-}
-legend {padding: 0 4px; background: #666; border-radius: 5px; font-size: 18px; }
-fieldset p {width: 30%; float: left; text-align: center; margin: 0; color: #fcc; }
-
-h4, h5 {width: 19%; cursor: pointer; }
-h4 {width: 35%; height; 100%; }
-h4, h5 {
-    background: #ddd;
-    border-radius: 5px;
-    float: left;
-    text-align: center;
-    color: #000;
-}
-
-/* Poison */
-label {display: block; clear: both; padding-top: .5em; font-size: 55%; text-align: center; }
-div.poison {font-size: 70%; padding: 0; width: 40%; margin: 0 auto; clear: both; overflow: auto; }
-div.poison p {width: 33%; color: #0e0; }
-div.poison h5 {width: 33%; }
-
-/* Log */
-#log {padding-top: 145px; }
-#log > div {
-    margin: 0 1%; padding: 10px 2%;
-    width: 43%;
-    float: left;
-    border: 1px solid #fff;
-    overflow: auto;
-}
-#log p {text-align: left; color: #700; }
-#log p.poison {color: #0c0; text-align: right; }
-#me_log {margin-right: 3%; }
-
-/* Number picker */
-#numberPicker {
-    display: none;
-    background-color: rgba(0, 0, 0, .8);
-    position: absolute;
-    top: 0; left: 0;
-    width: 100%; height: 100%;
-}
-#numberPicker > div {
-    margin: 5% 0 0 10%;
-    display: table; border-collapse: collapse; 
-    width: 80%; height: 90%;
-}
-#numberPicker > div > div {display: table-row}
-#numberPicker > div > div > p {
-    display: table-cell;
-    background: #fff; border: 1px solid #ddd;
-    text-align: center; vertical-align: middle;
-    cursor: pointer;
-}
-</style>
 
 <body>
 <div class="controlPanel">
@@ -125,13 +55,23 @@ div.poison h5 {width: 33%; }
 </div>
 
 <div id="log">
-<div id="me_log">
+<div>
+<div class="me_log">
 <p>20</p>
 </div>
-<div id="you_log">
+<div class="you_log">
 <p>20</p>
 </div>
 </div>
+</div>
+
+<div id="commandBar">
+<fieldset>
+<div id="nextTurn">Next Turn</div>
+</fieldset>
+</div>
+
+<div id="divider"></div>
 
 <div id="numberPicker">
 <div>
@@ -148,107 +88,7 @@ div.poison h5 {width: 33%; }
 </div>
 </div>
 
+<script src="myapp/www/js/score.js"></script>
 <script>
-/*jslint browser: true, sloppy: true */
-var activePlayer, activeFactor, activePoison;
-
-function Q$(name) {
-    var reQs, val;
-    reQs = new RegExp("[\\?&]" + name + "=([^&#]*)", "i");
-    val = reQs.exec(window.parent.location.search);
-    if (val) {
-        return decodeURIComponent(val[1]);
-    }
-    return "";
-}
-
-function touchEvent() {
-    if ('ontouchstart' in window || 'onmsgesturechange' in window) {
-        return 'touchstart';
-    }
-    return 'click';
-}
-
-function log(player, currentScore, scoreChange, isPoison) {
-    var recordTally, logEntry, scoreChangePrefix = '';
-    if (scoreChange) {
-        recordTally = document.getElementById(player + '_log');
-        logEntry = document.createElement('p');
-
-        if (scoreChange > 0) {
-            scoreChangePrefix = '+';
-        }
-        logEntry.innerHTML = currentScore + ' (' + scoreChangePrefix + scoreChange + ')';
-        if (isPoison) {
-            logEntry.className = 'poison';
-        }
-
-        recordTally.appendChild(logEntry);
-    }
-}
-
-function showScore(player, scoreChange, isPoison) {
-    var currentScore, scores = document.querySelectorAll('#' + player + ' p'), iType = Number(isPoison);
-
-    currentScore = +scores[iType].innerHTML + scoreChange;
-    scores[iType].innerHTML = currentScore;
-    log(player, currentScore, scoreChange, isPoison);
-}
-
-function pickNumber(factor, player, isPoison) {
-    var picker = document.getElementById('numberPicker');
-    activeFactor = factor;
-    activePlayer = player;
-    activePoison = !!isPoison;
-    picker.style.display = 'block';
-}
-
-function closeNumberPicker() {
-    document.getElementById('numberPicker').style.display = 'none';
-}
-
-function init() {
-    var startingLife = Q$('start') || 20, buttons, numberButtons, links, ii;
-    startingLife = +startingLife;
-
-    function pickScore(e) {
-        var el = e.target || e.srcElement;
-        showScore(activePlayer, el.innerHTML * activeFactor, activePoison);
-        closeNumberPicker();
-    }
-    document.getElementById('numberPicker').addEventListener(touchEvent(), closeNumberPicker);
-    numberButtons = document.querySelectorAll('#numberPicker > div > div > p');
-    for (ii = 0; ii < numberButtons.length; ii = ii + 1) {
-        numberButtons[ii].addEventListener(touchEvent(), pickScore);
-    }
-    buttons = document.querySelectorAll('h4');
-    buttons[0].addEventListener(touchEvent(), function () {pickNumber(-1, 'me'); });
-    buttons[1].addEventListener(touchEvent(), function () {pickNumber(1, 'me'); });
-    buttons[2].addEventListener(touchEvent(), function () {pickNumber(-1, 'you'); });
-    buttons[3].addEventListener(touchEvent(), function () {pickNumber(1, 'you'); });
-    
-    buttons = document.querySelectorAll('h5');
-    buttons[0].addEventListener(touchEvent(), function () {pickNumber(-1, 'me', true); });
-    buttons[1].addEventListener(touchEvent(), function () {pickNumber(1, 'me', true); });
-    buttons[2].addEventListener(touchEvent(), function () {pickNumber(-1, 'you', true); });
-    buttons[3].addEventListener(touchEvent(), function () {pickNumber(1, 'you', true); });
-
-    document.querySelector('#me p').innerHTML = startingLife;
-    document.querySelector('#you p').innerHTML = startingLife;
-    document.querySelector('#me_log p').innerHTML = startingLife;
-    document.querySelector('#you_log p').innerHTML = startingLife;
-
-    // To make reset links open in mobile Safari app
-    links = document.getElementsByTagName('a');
-    function appLink(e) {
-        e.preventDefault();
-        window.location = this.href;
-    }
-    for (ii = 0; ii < links.length; ii = ii + 1) {
-        links[ii].onclick = appLink;
-    }
-}
-
 init();
-
 </script>
