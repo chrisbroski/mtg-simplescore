@@ -29,13 +29,14 @@ body {
 * {margin: 0; padding: 0; }
 html {font-family: droid sans, sans-serif; padding: 0 1%; height: 100%; overflow: auto; }
 body {height: 100%; overflow: auto; }
-h1 {padding: 5px; font-size: 18px; color: #5d5d5d; background: #e5e5e5; border-bottom: 1px solid #dbdbdb; }
+h1 {padding: 5px 5px 3px; font-size: 18px; color: #5d5d5d; background: #e5e5e5; border-bottom: 1px solid #dbdbdb; }
 .controlPanel {position: fixed; width: 100%; top: 0; left: 0; z-index: 1; }
 .controlPanel > p {float: right; padding: 5px 3% 0 0; }
 
 /* Buttons */
 fieldset {
-    margin: 10px 1%; padding: 5px 2% 10px;
+    margin: 10px 1%; padding: 30px 2% 10px;
+    position: relative;
     width: 44%;
     float: left;
     font-size: 24px;
@@ -43,14 +44,14 @@ fieldset {
     background: #666;
     color: #fff; 
 }
-legend {padding: 0 4px; background: #666; border-radius: 5px; font-size: 18px; }
+/*legend {padding: 0 4px; background: #666; border-radius: 5px; font-size: 18px; }*/
+legend {font-size: 18px; position: absolute; top: 5px; left: 4%; }
 fieldset p {width: 30%; float: left; text-align: center; margin: 0; }
 
 h4, h5 {width: 19%; cursor: pointer; }
 h4 {width: 35%; height; 100%; }
 h4, h5 {
     background: #ddd;
-    border-radius: 5px;
     float: left;
     text-align: center;
     color: #000;
@@ -63,7 +64,7 @@ div.poison p {width: 33%; color: #0e0; }
 div.poison h5 {width: 33%; }
 
 /* Log */
-#log {padding: 145px 0 85px; font-family: monospace; }
+#log {padding: 145px 0 65px; font-family: monospace; }
 #log > div {border-bottom: 1px solid #aaa; overflow: auto; }
 #log > div > div {
     margin: 0 1%; padding: 4px 2%;
@@ -102,9 +103,9 @@ div.poison h5 {width: 33%; }
 
 #commandBar {position: fixed; width: 100%; bottom: -0.5%; left: 0; z-index: 1; text-align: right; }
 #commandBar fieldset {width: 94%; padding: 5px 2%;}
-#commandBar #nextTurn {font-size: 20px; padding: 0.1em 1em 0; border-radius: 5px; background: #ddd; color: #000; display: inline-block; }
+#commandBar #nextTurn {font-size: 20px; padding: 0.1em 1em 0; background: #ddd; color: #000; display: inline-block; }
 
-#divider {height: 100vh; width: 2%; background: #fff; position: absolute; top: 0; left: 49%; }
+#divider {height: 100%; width: 2%; background: #fff; position: absolute; top: 0; left: 49%; }
 
 /* hiding poison for now - come up with a way to pop it back in if needed */
 div.poison, label {display: none; }

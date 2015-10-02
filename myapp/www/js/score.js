@@ -27,6 +27,14 @@ function touchEvent() {
     return 'click';
 }
 
+function scrollToBottom() {
+    //console.log(document.getElementById('log').getBoundingClientRect());
+    //document.getElementById('divider').style.height = '100%';
+    //window.scrollTo(0, document.body.scrollHeight);
+    //window.scrollTo(0, 999999999999);
+    document.querySelector('#log > div:last-child').scrollIntoView();
+}
+
 function log(player, currentScore, scoreChange, isPoison) {
     var recordTally, logEntry, scoreChangePrefix = '', changeType = '<span>';
     if (scoreChange) {
@@ -45,8 +53,7 @@ function log(player, currentScore, scoreChange, isPoison) {
         }
 
         recordTally.appendChild(logEntry);
-        window.scrollTo(0, document.body.scrollHeight);
-        document.getElementById('divider').style.height = '100%';
+        scrollToBottom();
     }
 }
 
@@ -80,8 +87,7 @@ function newTurn() {
     turn.appendChild(me_log);
     turn.appendChild(you_log);
     document.getElementById('log').appendChild(turn);
-    window.scrollTo(0, document.body.scrollHeight);
-    document.getElementById('divider').style.height = '100%';
+    scrollToBottom();
 }
 
 function nextTurn(e) {
@@ -120,7 +126,7 @@ function init() {
     document.querySelector('.me_log p').innerHTML = startingLife;
     document.querySelector('.you_log p').innerHTML = startingLife;
     
-    document.getElementById('nextTurn').addEventListener('click', nextTurn);
+    document.getElementById('nextTurn').addEventListener(touchEvent(), nextTurn);
 
     // To make reset links open in mobile Safari app
     links = document.getElementsByTagName('a');
