@@ -44,7 +44,6 @@ fieldset {
     background: #666;
     color: #fff; 
 }
-/*legend {padding: 0 4px; background: #666; border-radius: 5px; font-size: 18px; }*/
 legend {font-size: 18px; position: absolute; top: 5px; left: 4%; }
 fieldset p {width: 30%; float: left; text-align: center; margin: 0; }
 
