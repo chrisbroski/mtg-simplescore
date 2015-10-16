@@ -136,6 +136,38 @@ function init() {
     document.querySelector('.you_log p').innerHTML = startingLife;
     
     document.getElementById('nextTurn').addEventListener(touchEvent(), nextTurn);
+    document.getElementById('hamburgerMenu').addEventListener(touchEvent(), function () {
+        document.getElementById('mainMenu').style.display = 'block';
+    });
+    document.getElementById('mainMenu').addEventListener(touchEvent(), function (e) {
+        var targ = getEventTarget(e);
+        console.log(e);
+        if (targ.innerHTML === "Reset to 20 life") {
+            location = "?start=20";
+        }
+        if (targ.innerHTML === "Reset to 30 life") {
+            location = "?start=30";
+        }
+        if (targ.innerHTML === "Reset to 40 life") {
+            location = "?start=40";
+        }
+        if (targ.innerHTML === "Show poison") {
+            //location = "?start=40";
+            //div.poison, label {display: none; }
+            var poisonDivs = document.querySelectorAll("div.poison, label"), ii, len, displayStyle;
+            len = poisonDivs.length;
+            if (poisonDivs[0].style.display === 'block') {
+                displayStyle = 'none';
+            } else {
+                displayStyle = 'block';
+            }
+            for (ii = 0; ii < len; ii = ii + 1) {
+                poisonDivs[ii].style.display = displayStyle;
+            }
+        }
+        
+        document.getElementById('mainMenu').style.display = 'none';
+    });
 
     // To make reset links open in mobile Safari app
     links = document.getElementsByTagName('a');
