@@ -98,7 +98,6 @@ body::-webkit-scrollbar {
 #log p {text-align: right; color: #000; font-size: 20px; font-weight: bold; }
 #log p span {font-weight: normal; padding-right: 0.5em; }
 #log p span.gain {color: #f00; }
-.you_log {background: #000; }
 #log .you_log p {color: #fff; }
 #log div p.poison {color: #0c0; }
 
