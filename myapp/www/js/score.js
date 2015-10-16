@@ -99,6 +99,8 @@ function unDo() {
     if (document.getElementById('numberPicker').style.display === 'block') {
         console.log('close picker');
         closeNumberPicker();
+    } else if (document.getElementById('mainMenu').style.display === 'block') {
+        document.getElementById('mainMenu').style.display = 'none';
     } else {
         console.log('undo turn or score');
     }
