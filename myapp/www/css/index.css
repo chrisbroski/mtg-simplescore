@@ -26,10 +26,16 @@ body {
     -webkit-user-select: none;                  /* prevent copy paste, to allow, change 'none' to 'text' */
 }
 
+
+@font-face {
+    font-family: "mtg";
+    src: url("Planewalker.otf") format("opentype");   
+}
+
 * {margin: 0; padding: 0; }
 html {font-family: droid sans, sans-serif; height: 100%; width: 100%; overflow: auto; }
 body {height: 100%; overflow: auto; background: black url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAACvAAAAABAQAAAAAqT0YHAAAAAnRSTlMAAHaTzTgAAAAPSURBVHgBY/g/tADD0AIAIROuUgYu7kEAAAAASUVORK5CYII=) 50% top repeat-y; }
-h1 {padding: 10px; font-size: 18px; color: #5d5d5d; background: #666; line-height: 1em; color: #fff; }
+h1 {padding: 10px; font-size: 20px; font-family: mtg, san-serif; letter-spacing: 0.1em; color: #5d5d5d; background: #666; line-height: 1em; color: #fff; }
 .controlPanel {position: fixed; width: 100%; top: 0; left: 0; z-index: 1; }
 .controlPanel > p {float: right; padding: 5px 3% 0 0; }
 
