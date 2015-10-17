@@ -75,6 +75,8 @@ function pickNumber(factor, player, isPoison) {
 
 function closeNumberPicker() {
     document.getElementById('numberPicker').style.display = 'none';
+    document.getElementById('mainMenu').style.display = 'none';
+    document.body.style.width = '100%';
 }
 
 function newTurn() {
@@ -90,14 +92,10 @@ function newTurn() {
     scrollToBottom();
 }
 
-function nextTurn(e) {
-    //console.log('next turn');
-    newTurn();
-}
-
 function unDo() {
     if (document.getElementById('numberPicker').style.display === 'block') {
-        console.log('close picker');
+        closeNumberPicker();
+    } else if (document.getElementById('mainMenu').style.display === 'block') {
         closeNumberPicker();
     } else {
         console.log('undo turn or score');
@@ -123,7 +121,7 @@ function init() {
     buttons[1].addEventListener(touchEvent(), function () {pickNumber(1, 'me'); });
     buttons[2].addEventListener(touchEvent(), function () {pickNumber(-1, 'you'); });
     buttons[3].addEventListener(touchEvent(), function () {pickNumber(1, 'you'); });
-    
+
     buttons = document.querySelectorAll('h5');
     buttons[0].addEventListener(touchEvent(), function () {pickNumber(-1, 'me', true); });
     buttons[1].addEventListener(touchEvent(), function () {pickNumber(1, 'me', true); });
@@ -134,8 +132,39 @@ function init() {
     document.querySelector('#you p').innerHTML = startingLife;
     document.querySelector('.me_log p').innerHTML = startingLife;
     document.querySelector('.you_log p').innerHTML = startingLife;
-    
-    document.getElementById('nextTurn').addEventListener(touchEvent(), nextTurn);
+
+    document.getElementById('nextTurn').addEventListener(touchEvent(), newTurn);
+    document.getElementById('hamburgerMenu').addEventListener(touchEvent(), function () {
+        document.getElementById('mainMenu').style.display = 'block';
+    });
+    document.getElementById('mainMenu').addEventListener(touchEvent(), function (e) {
+        var targ = getEventTarget(e);
+        if (targ.innerHTML === "Reset to 20 life") {
+            location = "?start=20";
+        }
+        if (targ.innerHTML === "Reset to 30 life") {
+            location = "?start=30";
+        }
+        if (targ.innerHTML === "Reset to 40 life") {
+            location = "?start=40";
+        }
+        if (targ.innerHTML === "Show poison") {
+            //location = "?start=40";
+            //div.poison, label {display: none; }
+            var poisonDivs = document.querySelectorAll("div.poison, label"), ii, len, displayStyle;
+            len = poisonDivs.length;
+            if (poisonDivs[0].style.display === 'block') {
+                displayStyle = 'none';
+            } else {
+                displayStyle = 'block';
+            }
+            for (ii = 0; ii < len; ii = ii + 1) {
+                poisonDivs[ii].style.display = displayStyle;
+            }
+        }
+
+        closeNumberPicker();
+    });
 
     // To make reset links open in mobile Safari app
     links = document.getElementsByTagName('a');
