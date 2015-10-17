@@ -34,7 +34,7 @@ h1 {padding: 10px; font-size: 18px; color: #5d5d5d; background: #666; line-heigh
 .controlPanel > p {float: right; padding: 5px 3% 0 0; }
 
 #hamburgerMenu {
-    margin: 5px; padding: 1px; 
+    margin: 5px 5px 0; padding: 1px; 
     width: 40px;
     float: right;
     background: #fff; 
@@ -144,3 +144,4 @@ div.poison, label {display: none; }
 html.ios7 h1 {padding-top: 20px; }
 html.ios7 .controlPanel > p {padding-top: 20px; }
 html.ios7 #log {padding-top: 125px; }
+html.ios7 #hamburgerMenu {margin-top: 15px; }
