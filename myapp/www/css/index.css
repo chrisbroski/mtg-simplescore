@@ -33,9 +33,13 @@ body {
 }
 
 * {margin: 0; padding: 0; }
-html {font-family: droid sans, sans-serif; height: 100%; width: 100%; overflow: auto; }
-body {height: 100%; overflow: auto; background: black url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAACvAAAAABAQAAAAAqT0YHAAAAAnRSTlMAAHaTzTgAAAAPSURBVHgBY/g/tADD0AIAIROuUgYu7kEAAAAASUVORK5CYII=) 50% top repeat-y; }
-h1 {padding: 10px; font-size: 20px; font-family: mtg, san-serif; letter-spacing: 0.1em; color: #5d5d5d; background: #666; line-height: 1em; color: #fff; }
+html {font-family: serif; height: 100%; width: 100%; overflow: auto; background: #000; }
+body {height: 100%; overflow: auto; background: black url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAACvAAAAABAQAAAAAqT0YHAAAAAnRSTlMAAHaTzTgAAAAPSURBVHgBY/g/tADD0AIAIROuUgYu7kEAAAAASUVORK5CYII=) 50% top repeat-y; border-radius: 10px; border: 2px solid #000; 
+border-top: 4px solid #000; }
+h1 {padding: 10px; font-size: 20px; letter-spacing: 0.1em; color: #000; background: #ddd; line-height: 1em; 
+    border-top: 2px solid #000; border-left: 2px solid #000; border-right: 2px solid #000; 
+    border-top-left-radius: 10px; border-top-right-radius: 10px; 
+}
 .controlPanel {position: fixed; width: 100%; top: 0; left: 0; z-index: 1; }
 .controlPanel > p {float: right; padding: 5px 3% 0 0; }
 
@@ -138,8 +142,12 @@ body::-webkit-scrollbar {
     border-bottom: 1px solid #666;
 }
 
-#commandBar {position: fixed; width: 100%; bottom: 0; left: 0; z-index: 1; text-align: right; }
-#commandBar fieldset {padding: 5px 10px; width: 100%; display: block; background: #666; }
+#commandBar {position: fixed; width: 100%; bottom: 0; left: 0; z-index: 1; text-align: right; background: #000; 
+}
+#commandBar fieldset {padding: 5px 10px; width: 100%; display: block; background: #666; 
+    border-bottom: 2px solid #000; border-left: 2px solid #000; border-right: 2px solid #000; 
+    border-bottom-left-radius: 10px; border-bottom-right-radius: 10px; 
+}
 #commandBar #nextTurn {font-size: 20px; padding: 0.1em 1em 0; background: #ddd; color: #000; display: inline-block; border-radius: 6px; }
 
 /* hiding poison for now - come up with a way to pop it back in if needed */
