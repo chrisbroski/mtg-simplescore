@@ -32,38 +32,78 @@ body {
     src: url("Planewalker.otf") format("opentype");   
 }
 
-* {margin: 0; padding: 0; }
+* {margin: 0; padding: 0; box-sizing: border-box; }
 html {font-family: serif; height: 100%; width: 100%; overflow: auto; background: #000; }
-body {height: 100%; overflow: auto; background: black url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAACvAAAAABAQAAAAAqT0YHAAAAAnRSTlMAAHaTzTgAAAAPSURBVHgBY/g/tADD0AIAIROuUgYu7kEAAAAASUVORK5CYII=) 50% top repeat-y; border-radius: 10px; border: 2px solid #000; 
-border-top: 4px solid #000; }
-h1 {padding: 10px; font-size: 20px; letter-spacing: 0.1em; color: #000; background: #ddd; line-height: 1em; 
-    border-top: 2px solid #000; border-left: 2px solid #000; border-right: 2px solid #000; 
-    border-top-left-radius: 10px; border-top-right-radius: 10px; 
+body {
+    padding: 7px 8px 30px 7px;
+    background-color: #69a;
+    background-image: 
+        repeating-linear-gradient(140deg, transparent, rgba(255, 255, 255, 0.25) 1%, transparent 20%),
+        repeating-linear-gradient(-30deg, transparent, transparent 8%, rgba(255, 255, 255, 0.4), transparent 9%),
+        repeating-linear-gradient(-10deg, transparent, transparent 13%, rgba(0, 0, 0, 0.4), transparent 15%),
+        repeating-linear-gradient(80deg, transparent, transparent 7.5%, rgba(0, 0, 0, 0.25), transparent 8%),
+        repeating-linear-gradient(5deg, transparent, transparent 10.5%, rgba(255, 255, 255, 0.5), transparent 11%),
+        repeating-linear-gradient(75deg, transparent, transparent 11.5%, rgba(255, 255, 255, 0.5), transparent 12%),
+        repeating-radial-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2) 1%, transparent 1%, transparent 5%);
+    border-radius: 10px 10px 40px 40px;
+    border: 2px solid #000; 
+    height: 90%; overflow: visibile; 
 }
-.controlPanel {position: fixed; width: 100%; top: 0; left: 0; z-index: 1; }
-.controlPanel > p {float: right; padding: 5px 3% 0 0; }
+article {
+    height: 110%;
+    overflow: auto;
+    /*background: black url(data:image/gif;base64,R0lGODlhAQABAPAAAN3u7v///yH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==) 50% top repeat-y;*/
+    background-image: 
+    -webkit-linear-gradient(left, #dee 0%, #dee 50%, black 50%, black 100%);
+    background-image: linear-gradient(90deg, #dee 50%, #000 50%);
+    border-left: 2px solid #000;
+    border-right: 3px solid #ddd; 
+    /*box-shadow: inset 2px -3px 0 #aaa, inset -1px 1px 0 #fff;*/
+    /*box-shadow: inset -2px 2px 1px #ddd;/*, inset 1px -1px 0 #fff;*/
+    box-shadow: inset -2px 0 1px #999, inset 3px 0 1px #ddd;
+    border-bottom: 2px solid #555; 
+}
 
-#hamburgerMenu {
-    margin: 5px 5px 0; padding: 1px; 
-    width: 40px;
-    float: right;
-    background: #fff; 
-    border-radius: 4px;
-    cursor: pointer;
+header {
+    padding: 3px; 
+    background: #ddd;
+    border-radius: 8px/20px;
+    box-shadow: -2px 0 0 0 rgba(0, 0, 0, 0.8);
+    position: absolute;
+    top: 90px; left: 6px; right: 5px; 
+    z-index: 1;
 }
-#hamburgerMenu span {
-    margin: 3px; 
-    height: 5px;
-    display: block;
-    background: #666;
-    border-radius: 2px;
+header div {
+    padding: 3px 8px 3px; 
+    background: radial-gradient(ellipse farthest-corner, #E0E7ED 50%, #BDC6CD);
+    position: relative;
+    border: 2px solid #000; 
+    border-radius: 10px/20px;
+    box-shadow: inset 2px -3px 0 #aaa, inset -1px 1px 0 #fff;
+    height: 33px; 
 }
+header:first-child {top: 8px; }
+/*h1 {padding: 10px; font-size: 20px; letter-spacing: 0.1em; color: #000; background: #ddd; line-height: 1em; */
+    /*border-top: 2px solid #000; border-left: 2px solid #000; border-right: 2px solid #000; */
+    /*border-top-left-radius: 10px; border-top-right-radius: 10px; 
+}*/
+h1 {font-size: 20px; }
+.controlPanel {
+    position: fixed;
+    top: 40px; left: 10px; right: 10px; 
+    background-image: 
+    -webkit-linear-gradient(left, #dee 0%, #dee 50%, black 50%, black 100%);
+    background-image: linear-gradient(90deg, #dee 50%, #000 50%);
+    border-left: 1px solid #000; 
+    border-right: 3px solid #ddd; 
+    /*box-shadow: inset -2px 2px 1px #ddd;*/
+}
+.controlPanel > p {float: right; padding: 5px 3% 0 0; }
 
 /* Buttons */
 fieldset {
-    padding: 30px 3% 10px;
+    padding: 15px 3% 10px;
     position: relative;
-    box-sizing: border-box;
     width: 50%;
     float: left;
     font-size: 24px;
@@ -75,14 +115,29 @@ fieldset {
 legend {font-size: 18px; position: absolute; top: 5px; left: 4%; }
 fieldset p {width: 30%; float: left; text-align: center; margin: 0; }
 
-h4, h5 {width: 19%; cursor: pointer; }
-h4 {width: 35%; height; 100%; }
 h4, h5 {
-    background: #bbb;
+    width: 19%;
+    cursor: pointer; 
+    background: #ddd;
     float: left;
     text-align: center;
     color: #000;
-    border-radius: 6px; 
+    border-radius: 20px; 
+}
+h4 {width: 35%; height; 100%; }
+h5 {font-size: 16px; }
+h2 {width: 50%; float: left; font-size: 18px; }
+h3 {
+    padding-top: 3px;
+    position: absolute;
+    right: 5px; top: 2px;
+    width: 1.1em; height: 1.1em;
+    background: #ddd;
+    text-align: center;
+    border-radius: 1em;
+    box-shadow: -1px 2px 0 black;
+    line-height: 1em;
+    cursor: pointer;
 }
 
 /* Poison */
@@ -94,13 +149,16 @@ div.poison h5 {width: 33%; }
 /* Log */
 #log {padding: 145px 0 65px; font-family: monospace; }
 #log > div {border-top: 1px solid #aaa; overflow: auto; }
-#log > div:first-child {border-top: 0 none; }
+#log > div:first-child {
+    margin-top: 5px;
+    /*border-top: 2px solid #999;*/
+    border-top: 0 none; 
+}
 #log > div > div {
     padding: 4px 3%;
     width: 50%;
     float: left;
     overflow: auto;
-    box-sizing: border-box;
 }
 body::-webkit-scrollbar { 
     display: none; 
@@ -110,6 +168,34 @@ body::-webkit-scrollbar {
 #log p span.gain {color: #f00; }
 #log .you_log p {color: #fff; }
 #log div p.poison {color: #0c0; }
+
+/* Mark Turn */
+#powerToughness {
+    padding: 3px; 
+    background: #ddd;
+    border-radius: 8px/20px;
+    box-shadow: -2px 0 0 0 rgba(0, 0, 0, 0.8);
+    position: absolute;
+    width: 9em;
+    top: auto; right: 21px; bottom: 28px; left: auto; 
+    text-align: center; 
+    /*box-shadow: -2px 1px 2px 0 rgba(0, 0, 0, 0.8);*/
+}
+#powerToughness div {
+    padding: 5px 8px 3px; 
+    background: radial-gradient(ellipse farthest-corner, #E0E7ED 50%, #BDC6CD);
+    position: relative;
+    border: 2px solid #000; 
+    border-radius: 10px/20px;
+    /*box-shadow: inset 2px -3px 0 #aaa, inset -1px 1px 0 #fff;*/
+    padding: 4px 0 0; 
+    height: 23px;
+    box-shadow: inset -2px 2px 1px #333, inset 1px -1px 0 #fff;
+    border: 0 none;
+    font-size: 21px;
+    cursor: pointer;
+    line-height: 0.9em;
+}
 
 /* Number picker */
 #numberPicker, #mainMenu {
@@ -142,17 +228,17 @@ body::-webkit-scrollbar {
     border-bottom: 1px solid #666;
 }
 
-#commandBar {position: fixed; width: 100%; bottom: 0; left: 0; z-index: 1; text-align: right; background: #000; 
+/*#commandBar {position: fixed; width: 100%; bottom: 0; left: 0; z-index: 1; text-align: right; background: #000; 
 }
 #commandBar fieldset {padding: 5px 10px; width: 100%; display: block; background: #666; 
     border-bottom: 2px solid #000; border-left: 2px solid #000; border-right: 2px solid #000; 
     border-bottom-left-radius: 10px; border-bottom-right-radius: 10px; 
 }
 #commandBar #nextTurn {font-size: 20px; padding: 0.1em 1em 0; background: #ddd; color: #000; display: inline-block; border-radius: 6px; }
-
+*/
 /* hiding poison for now - come up with a way to pop it back in if needed */
 div.poison, label {display: none; }
-#log {padding-top: 105px; }
+#log {padding-top: 115px; }
 
 /*  iOS 7 statusbar */
 html.ios7 h1 {padding-top: 20px; }

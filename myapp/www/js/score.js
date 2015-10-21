@@ -102,6 +102,39 @@ function unDo() {
     }
 }
 
+function test() {
+    pickNumber(-1, 'me');
+    showScore(activePlayer, -1, false);
+    newTurn();
+    showScore(activePlayer, -1, false);
+    newTurn();
+    showScore(activePlayer, -1, false);
+    newTurn();
+    showScore(activePlayer, 1, true);
+    newTurn();
+    showScore(activePlayer, -1, false);
+    newTurn();
+    showScore(activePlayer, -1, false);
+    newTurn();
+    showScore(activePlayer, -1, false);
+    newTurn();
+    pickNumber(-1, 'you');
+    showScore(activePlayer, -1, false);
+    newTurn();
+    showScore(activePlayer, -1, false);
+    newTurn();
+    showScore(activePlayer, -1, false);
+    newTurn();
+    showScore(activePlayer, 1, false);
+    newTurn();
+    showScore(activePlayer, -1, false);
+    newTurn();
+    showScore(activePlayer, -1, false);
+    newTurn();
+    showScore(activePlayer, -1, false);
+    scrollToBottom();
+}
+
 function init() {
     var startingLife = Q$('start') || 20, buttons, numberButtons, links, ii;
     startingLife = +startingLife;
@@ -151,16 +184,25 @@ function init() {
         if (targ.innerHTML === "Show poison") {
             //location = "?start=40";
             //div.poison, label {display: none; }
-            var poisonDivs = document.querySelectorAll("div.poison, label"), ii, len, displayStyle;
+            var poisonDivs = document.querySelectorAll("div.poison, label"), ii, len, displayStyle,
+                playerHeader = document.getElementById('players'),
+                log = document.getElementById('log');
             len = poisonDivs.length;
             if (poisonDivs[0].style.display === 'block') {
                 displayStyle = 'none';
+                playerHeader.style.top = '90px';
+                log.style.paddingTop = '115px';
             } else {
                 displayStyle = 'block';
+                playerHeader.style.top = '120px';
+                log.style.paddingTop = '145px';
             }
             for (ii = 0; ii < len; ii = ii + 1) {
                 poisonDivs[ii].style.display = displayStyle;
             }
+        }
+        if (targ.innerHTML === "Test") {
+            test();
         }
 
         closeNumberPicker();

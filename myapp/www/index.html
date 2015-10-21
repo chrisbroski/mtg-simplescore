@@ -19,6 +19,7 @@
 -->
 <html>
 <head>
+<meta charset="utf-8">
 <meta http-equiv="Content-Security-Policy" content="default-src 'self' data: gap: https://ssl.gstatic.com 'unsafe-eval'; style-src 'self' 'unsafe-inline'; media-src *">
 <meta name="format-detection" content="telephone=no">
 <meta name="msapplication-tap-highlight" content="no">
@@ -28,18 +29,17 @@
 </head>
 <body>
 
-<div class="controlPanel">
+<article>
 
-<p id="hamburgerMenu">
-<span></span>
-<span></span>
-<span></span>
-</p>
-
+<header>
+<div>
+<h3 id="hamburgerMenu">☰</h3>
 <h1>MtG SimpleScore</h1>
+</div>
+</header>
 
+<div class="controlPanel">
 <fieldset id="me">
-<legend>Player &mdash; Me</legend>
 <div class="life">
 <h4>-</h4>
 <p>20</p>
@@ -55,7 +55,6 @@
 </fieldset>
 
 <fieldset id="you">
-<legend>Player &mdash; Them</legend>
 <div class="life">
 <h4>-</h4>
 <p>20</p>
@@ -69,8 +68,11 @@
 <h5>+</h5>
 </div>
 </fieldset>
-
 </div>
+
+<header id="players">
+<div><h2>Player — Me</h2><h2>Player — Them</h2></div>
+</header>
 
 <div id="log">
 <div>
@@ -83,10 +85,8 @@
 </div>
 </div>
 
-<div id="commandBar">
-<fieldset>
-<div id="nextTurn">Mark Turn</div>
-</fieldset>
+<div id="powerToughness">
+    <div id="nextTurn">Mark Turn</div>
 </div>
 
 <div id="numberPicker">
@@ -110,8 +110,11 @@
 <p>Reset to 30 life</p>
 <p>Reset to 40 life</p>
 <p>Show poison</p>
+<p>Test</p>
 </div>
 </div>
+
+</article>
 
 <script type="text/javascript" src="cordova.js"></script>
 <script type="text/javascript" src="js/index.js"></script>
