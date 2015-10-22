@@ -167,7 +167,7 @@ function init() {
     document.querySelector('#players p:last-child').innerHTML = startingLife;
 
     document.getElementById('nextTurn').addEventListener(touchEvent(), newTurn);
-    document.getElementById('hamburgerMenu').addEventListener(touchEvent(), function () {
+    document.querySelector('header:first-child').addEventListener(touchEvent(), function () {
         document.getElementById('mainMenu').style.display = 'block';
     });
     document.getElementById('mainMenu').addEventListener(touchEvent(), function (e) {

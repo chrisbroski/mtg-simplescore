@@ -132,7 +132,7 @@ h4, h5 {
 }
 h4 {width: 35%; height; 100%; }
 h5 {font-size: 16px; }
-h2 {width: 40%; float: left; font-size: 18px; }
+h2 {width: 40%; float: left; font-size: 16px; white-space: nowrap; line-height: 22px; }
 h3 {
     padding-top: 3px;
     position: absolute;
@@ -145,7 +145,8 @@ h3 {
     line-height: 1em;
     cursor: pointer;
 }
-#players p {padding-right: 10px; float: left; width: 10%; text-align: right; font-family: monospace; font-size: 20px; }
+#players p {padding-right: 10px; float: left; width: 10%; text-align: right; font-family: monospace; font-size: 20px; line-height: 22px; }
+#players div p:last-child {padding-right: 6px; }
 /* Poison */
 label {display: block; clear: both; font-size: 55%; text-align: center; }
 div.poison {font-size: 70%; padding: 0; width: 40%; margin: 0 auto; clear: both; overflow: auto; }
@@ -153,7 +154,7 @@ div.poison p {width: 33%; color: #0c0; }
 div.poison h5 {width: 33%; }
 
 /* Log */
-#log {padding: 0 0 65px 3px; font-family: monospace; }
+#log {margin-top: 118px; padding: 0 0 65px 3px; font-family: monospace; }
 #log > div {border-top: 1px solid #aaa; overflow: auto; }
 #log > div:first-child {
     margin-top: 5px;
@@ -245,10 +246,11 @@ body::-webkit-scrollbar {
 */
 /* hiding poison for now - come up with a way to pop it back in if needed */
 div.poison, label {display: none; }
-#log {margin-top: 118px; }
 
 /*  iOS 7 statusbar */
+/*
 html.ios7 h1 {padding-top: 20px; }
 html.ios7 .controlPanel > p {padding-top: 20px; }
 html.ios7 #log {margin-top: 125px; }
 html.ios7 #hamburgerMenu {margin-top: 15px; }
+*/

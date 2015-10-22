@@ -24,13 +24,13 @@ var app = {
     },
     onDeviceReady: function() {
         //console.log('call init');
-        if (parseFloat(window.device.version) >= 7.0) {
+        /*if (parseFloat(window.device.version) >= 7.0) {
             document.querySelector('html').className = "ios7";
         } else {
         //console.log(document.getElementById('deviceProperties').innerHTML);
         //navigator.splashscreen.hide();
             document.addEventListener("backbutton", unDo, false);
-        }
+        }*/
         init();
     }
 }, activePlayer, activeFactor, activePoison;
