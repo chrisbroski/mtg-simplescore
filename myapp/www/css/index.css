@@ -132,7 +132,7 @@ h4, h5 {
 }
 h4 {width: 35%; height; 100%; }
 h5 {font-size: 16px; }
-h2 {width: 30%; float: left; font-size: 18px; }
+h2 {width: 40%; float: left; font-size: 18px; }
 h3 {
     padding-top: 3px;
     position: absolute;
@@ -145,7 +145,7 @@ h3 {
     line-height: 1em;
     cursor: pointer;
 }
-#players p {padding-right: 10px; float: left; width: 20%; text-align: right; font-family: monospace; font-size: 20px; }
+#players p {padding-right: 10px; float: left; width: 10%; text-align: right; font-family: monospace; font-size: 20px; }
 /* Poison */
 label {display: block; clear: both; font-size: 55%; text-align: center; }
 div.poison {font-size: 70%; padding: 0; width: 40%; margin: 0 auto; clear: both; overflow: auto; }
