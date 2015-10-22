@@ -163,8 +163,8 @@ function init() {
 
     document.querySelector('#me p').innerHTML = startingLife;
     document.querySelector('#you p').innerHTML = startingLife;
-    document.querySelector('.me_log p').innerHTML = startingLife;
-    document.querySelector('.you_log p').innerHTML = startingLife;
+    document.querySelector('#players p').innerHTML = startingLife;
+    document.querySelector('#players p:last-child').innerHTML = startingLife;
 
     document.getElementById('nextTurn').addEventListener(touchEvent(), newTurn);
     document.getElementById('hamburgerMenu').addEventListener(touchEvent(), function () {
@@ -186,16 +186,21 @@ function init() {
             //div.poison, label {display: none; }
             var poisonDivs = document.querySelectorAll("div.poison, label"), ii, len, displayStyle,
                 playerHeader = document.getElementById('players'),
-                log = document.getElementById('log');
+                log = document.getElementById('log')
+                fieldsets = document.querySelectorAll('.controlPanel fieldset');
             len = poisonDivs.length;
             if (poisonDivs[0].style.display === 'block') {
                 displayStyle = 'none';
+                fieldsets[0].style.height = '40px'; 
+                fieldsets[1].style.height = '40px'; 
                 playerHeader.style.top = '90px';
-                log.style.paddingTop = '115px';
+                log.style.marginTop = '118px';
             } else {
                 displayStyle = 'block';
-                playerHeader.style.top = '120px';
-                log.style.paddingTop = '145px';
+                fieldsets[0].style.height = '72px'; 
+                fieldsets[1].style.height = '72px'; 
+                playerHeader.style.top = '122px';
+                log.style.marginTop = '150px';
             }
             for (ii = 0; ii < len; ii = ii + 1) {
                 poisonDivs[ii].style.display = displayStyle;

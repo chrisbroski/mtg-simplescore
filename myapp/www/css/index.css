@@ -46,8 +46,8 @@ body {
         repeating-linear-gradient(75deg, transparent, transparent 11.5%, rgba(255, 255, 255, 0.5), transparent 12%),
         repeating-radial-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2) 1%, transparent 1%, transparent 5%);
     border-radius: 10px 10px 40px 40px;
-    border: 2px solid #000; 
-    height: 90%; overflow: visibile; 
+    border: 3px solid #000; 
+    height: 92%; overflow: visibile; 
 }
 article {
     height: 110%;
@@ -65,7 +65,7 @@ article {
 }
 
 header {
-    padding: 3px; 
+    padding: 3px 3px 2px; 
     background: #ddd;
     border-radius: 8px/20px;
     box-shadow: -2px 0 0 0 rgba(0, 0, 0, 0.8);
@@ -87,24 +87,30 @@ header:first-child {top: 8px; }
     /*border-top: 2px solid #000; border-left: 2px solid #000; border-right: 2px solid #000; */
     /*border-top-left-radius: 10px; border-top-right-radius: 10px; 
 }*/
+footer {color: #fff; position: absolute; left: 20px; bottom: 6px; }
+footer h6 {color: #fff; font-family: sans-serif; font-size: 8px; font-weight: normal; }
+
 h1 {font-size: 20px; }
 .controlPanel {
     position: fixed;
-    top: 40px; left: 10px; right: 10px; 
+    top: 44px; left: 10px; right: 11px; 
     background-image: 
     -webkit-linear-gradient(left, #dee 0%, #dee 50%, black 50%, black 100%);
     background-image: linear-gradient(90deg, #dee 50%, #000 50%);
-    border-left: 1px solid #000; 
+    border-left: 2px solid #000; 
     border-right: 3px solid #ddd; 
     /*box-shadow: inset -2px 2px 1px #ddd;*/
+}
+.controlPanel > div {
+    margin: 2px; padding 2px; border: 2px solid #000; overflow: auto; 
 }
 .controlPanel > p {float: right; padding: 5px 3% 0 0; }
 
 /* Buttons */
 fieldset {
-    padding: 15px 3% 10px;
+    padding: 6px 3% 5px;
     position: relative;
-    width: 50%;
+    width: 50%; height: 40px; 
     float: left;
     font-size: 24px;
     border: 0 none;
@@ -126,7 +132,7 @@ h4, h5 {
 }
 h4 {width: 35%; height; 100%; }
 h5 {font-size: 16px; }
-h2 {width: 50%; float: left; font-size: 18px; }
+h2 {width: 30%; float: left; font-size: 18px; }
 h3 {
     padding-top: 3px;
     position: absolute;
@@ -139,7 +145,7 @@ h3 {
     line-height: 1em;
     cursor: pointer;
 }
-
+#players p {padding-right: 10px; float: left; width: 20%; text-align: right; font-family: monospace; font-size: 20px; }
 /* Poison */
 label {display: block; clear: both; font-size: 55%; text-align: center; }
 div.poison {font-size: 70%; padding: 0; width: 40%; margin: 0 auto; clear: both; overflow: auto; }
@@ -147,12 +153,13 @@ div.poison p {width: 33%; color: #0c0; }
 div.poison h5 {width: 33%; }
 
 /* Log */
-#log {padding: 145px 0 65px; font-family: monospace; }
+#log {padding: 0 0 65px 3px; font-family: monospace; }
 #log > div {border-top: 1px solid #aaa; overflow: auto; }
 #log > div:first-child {
     margin-top: 5px;
     /*border-top: 2px solid #999;*/
-    border-top: 0 none; 
+    /*border-top: 0 none; */
+    border-top: 2px solid #999; 
 }
 #log > div > div {
     padding: 4px 3%;
@@ -177,7 +184,7 @@ body::-webkit-scrollbar {
     box-shadow: -2px 0 0 0 rgba(0, 0, 0, 0.8);
     position: absolute;
     width: 9em;
-    top: auto; right: 21px; bottom: 28px; left: auto; 
+    top: auto; right: 21px; bottom: 18px; left: auto; 
     text-align: center; 
     /*box-shadow: -2px 1px 2px 0 rgba(0, 0, 0, 0.8);*/
 }
@@ -192,7 +199,7 @@ body::-webkit-scrollbar {
     height: 23px;
     box-shadow: inset -2px 2px 1px #333, inset 1px -1px 0 #fff;
     border: 0 none;
-    font-size: 21px;
+    font-size: 18px;
     cursor: pointer;
     line-height: 0.9em;
 }
@@ -238,10 +245,10 @@ body::-webkit-scrollbar {
 */
 /* hiding poison for now - come up with a way to pop it back in if needed */
 div.poison, label {display: none; }
-#log {padding-top: 115px; }
+#log {margin-top: 118px; }
 
 /*  iOS 7 statusbar */
 html.ios7 h1 {padding-top: 20px; }
 html.ios7 .controlPanel > p {padding-top: 20px; }
-html.ios7 #log {padding-top: 125px; }
+html.ios7 #log {margin-top: 125px; }
 html.ios7 #hamburgerMenu {margin-top: 15px; }
