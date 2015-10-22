@@ -154,14 +154,9 @@ div.poison p {width: 33%; color: #0c0; }
 div.poison h5 {width: 33%; }
 
 /* Log */
-#log {margin-top: 118px; padding: 0 0 65px 3px; font-family: monospace; }
+#log {margin-top: 118px; padding: 0 0 20px 3px; font-family: monospace; }
 #log > div {border-top: 1px solid #aaa; overflow: auto; }
-#log > div:first-child {
-    margin-top: 5px;
-    /*border-top: 2px solid #999;*/
-    /*border-top: 0 none; */
-    border-top: 2px solid #999; 
-}
+#log > div:first-child {margin-top: 5px; border-top: 2px solid #999; }
 #log > div > div {
     padding: 4px 3%;
     width: 50%;
