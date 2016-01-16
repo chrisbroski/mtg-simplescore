@@ -26,12 +26,6 @@ body {
     -webkit-user-select: none;                  /* prevent copy paste, to allow, change 'none' to 'text' */
 }
 
-
-@font-face {
-    font-family: "mtg";
-    src: url("Planewalker.otf") format("opentype");   
-}
-
 * {margin: 0; padding: 0; box-sizing: border-box; }
 html {font-family: serif; height: 100%; width: 100%; overflow: auto; background: #000; }
 body {
@@ -48,7 +42,7 @@ body {
         repeating-radial-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2) 1%, transparent 1%, transparent 5%);*/
     border-radius: 10px 10px 40px 40px;
     border: 3px solid #000; 
-    height: 92%; overflow: visibile; 
+    height: 92%; overflow: visible;
 }
 article {
     height: 110%;
@@ -71,7 +65,7 @@ header {
     z-index: 1;
 }
 header div {
-    padding: 3px 8px 3px; 
+    padding: 3px 8px; 
     background: radial-gradient(ellipse farthest-corner, #E0E7ED 50%, #BDC6CD);
     position: relative;
     border: 2px solid #000; 
@@ -223,11 +217,3 @@ body::-webkit-scrollbar {
 
 /* hide poison on initial load */
 div.poison, label {display: none; }
-
-/*  iOS 7 statusbar */
-/*
-html.ios7 h1 {padding-top: 20px; }
-html.ios7 .controlPanel > p {padding-top: 20px; }
-html.ios7 #log {margin-top: 125px; }
-html.ios7 #hamburgerMenu {margin-top: 15px; }
-*/
